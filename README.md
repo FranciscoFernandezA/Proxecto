@@ -31,6 +31,7 @@ Se ha instalado xdebug con la siguiente configuración:
 * xdebug.discover_client_host=0
 * xdebug.client_host=host.docker.internal
 * xdebug.log_level=7
+* xdebug.var_display_max_depth=10
 * xdebug.log=/tmp/xdebug.log
 
 Se puede modificar la configuración modificando el fichero `./docker/php/xdebug.ini`
