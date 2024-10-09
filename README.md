@@ -1,4 +1,4 @@
-# Docker: PHP & MySQL
+# Docker: PHP & MariaDB
 
 ## php
 Se ha añadido soporte para trabajar con otras versiones de php. Se ha modificado el archivo docker de la máquina para instalar:
@@ -38,20 +38,20 @@ Se puede modificar la configuración modificando el fichero `./docker/php/xdebug
 ## Apache
 Se ha habilitado la directiva de apache de listado de directorio.
 
-## MySQL
-Podemos acceder a todas las bases de datos creadas en el contenedor usando el usuario definido por la variable `MYSQL_USER` o con el usuario `root` la contraseña será en ambos casos la misma que definamos en la variable de entorno `MYSQL_PASSWORD`.
+## MariaDb
+Podemos acceder a todas las bases de datos creadas en el contenedor usando el usuario definido por la variable `MARIABD_USER` o con el usuario `root` la contraseña será en ambos casos la misma que definamos en la variable de entorno `MARIADB_PASSWORD`.
 
 * El usuario `root` tendrá acceso a todas las bases de datos creadas en el contenedor.
-* El usuario `MYSQL_USER` tendrá acceso sólo a la base de datos definida en la variable de entorno `MYSQL_DATABASE`.
+* El usuario `MARIADB_USER` tendrá acceso sólo a la base de datos definida en la variable de entorno `MARIADB_DATABASE`.
 
-Para aplicaciones en las que sólo accedamos a una base de datos debemos utilizar el usuario `MYSQL_USER`.
+Para aplicaciones en las que sólo accedamos a una base de datos debemos utilizar el usuario `MARIADB_USER`.
 
 ### Importación de BBDD
 
-Si importamos ficheros de script SQL en la carpeta `./docker/mysql/dumps` éstos se importarán automáticamente en la primera ejecución del entorno.
+Si importamos ficheros de script SQL en la carpeta `./docker/mariadb/dumps` éstos se importarán automáticamente en la primera ejecución del entorno.
 
 * Los scripts pueden realizar **cualquier operación**. Por ejemplo, crear schemas, tablas y volcar información en las mismas.
-* Los scripts que no especifiquen la base de datos a utilizar con la sentencia `USE`, se ejecutarán en `MYSQL_DATABASE`
+* Los scripts que no especifiquen la base de datos a utilizar con la sentencia `USE`, se ejecutarán en `MARIADB_DATABASE`
 
 Estos scripts sólo se ejecutarán la primera vez que lancemos el entorno. Para testear que el site se crea bien, debemos tirar las máquinas, borrar el volumen asociado, rehacer la máquina mysql y lanzar el entorno:
 ```zsh
@@ -72,7 +72,7 @@ docker compose up -d
 
 
 
-Readme proyecto original
+Readme proyecto original (realizado con MySQL)
 ---
 
 Instala rápidamente un ambiente de desarrollo local para trabajar con [PHP](https://www.php.net/) y [MySQL](https://www.mysql.com/) utilizando [Docker](https://www.docker.com). 
