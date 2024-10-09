@@ -79,7 +79,7 @@ Instala rápidamente un ambiente de desarrollo local para trabajar con [PHP](htt
 
 Utilizar *Docker* es sencillo, pero existen tantas imágenes, versiones y formas para crear los contenedores que hacen tediosa esta tarea. Este proyecto ofrece una instalación rápida, con versiones estandar y con la mínima cantidad de modificaciones a las imágenes de Docker. 
 
-Viene configurado con  `PHP 8.0` y `MySQL 8.0`, además se incluyen las extensiones `gd`, `zip` y `mysql`.
+Viene configurado con  `PHP 8.0` y `MariaDB LTS`, además se incluyen las extensiones `gd`, `zip` y `mysql`.
 
 ## Configurar el ambiente de desarrollo
 
