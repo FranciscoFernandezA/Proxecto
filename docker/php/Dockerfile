@@ -1,6 +1,11 @@
 ARG php_version
 FROM php:${php_version}
 
+# try the ServerName to localhost
+
+#RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+
 # prepare install
 RUN apt-get update --fix-missing
 RUN apt-get install -y build-essential libssl-dev zlib1g-dev libpng-dev libjpeg-dev libfreetype6-dev
