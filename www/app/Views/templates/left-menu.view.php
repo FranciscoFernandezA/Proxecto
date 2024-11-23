@@ -21,27 +21,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="/productos" class="nav-link <?php echo isset($seccion) && $seccion === '/productos' ? 'active' : ''; ?>">
+                  <i class="fas fa-boxes nav-icon"></i>
+                  <p>Catálogo</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="/usuarios" class="nav-link <?php echo isset($seccion) && $seccion === '/usuarios' ? 'active' : ''; ?>">
                   <i class="fas fa-users nav-icon"></i>
-                  <p>Todos usuarios</p>
+                  <p>Usuarios</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="/usuarios/ordered" class="nav-link <?php echo isset($seccion) && $seccion === '/usuarios/ordered' ? 'active' : ''; ?>">
                   <i class="fas fa-users nav-icon"></i>
                   <p>Ordenados salar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/usuarios/estandard" class="nav-link <?php echo isset($seccion) && $seccion === '/usuarios/estandard' ? 'active' : ''; ?>">
-                  <i class="fas fa-user-injured nav-icon"></i>
-                  <p>Estándard</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/usuarios/carlos" class="nav-link <?php echo isset($seccion) && $seccion === '/usuarios/carlos' ? 'active' : ''; ?>">
-                  <i class="fas fa-user-astronaut nav-icon"></i>
-                  <p>Usuarios Carlos</p>
                 </a>
               </li>
             </ul>

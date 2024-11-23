@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AdminLTE 3 | Dashboard</title>
 
+  <!-- Google Font: Material icons-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -34,14 +36,14 @@
   <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper"> 
+<div class="wrapper">
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>      
+      </li>
     </ul>
 
     <!-- Right navbar links -->
@@ -50,13 +52,13 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="navbar-search" href="#" role="button">
           <i class="text-danger fas fa-sign-out-alt"></i>
-        </a>        
+        </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
-      </li>      
+      </li>
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -80,7 +82,7 @@
           <a href="#" class="d-block">Usuario</a>
         </div>
       </div>
-     
+
       <?php
       include $_ENV['folder.views'].'templates/left-menu.view.php';
       ?>
@@ -95,20 +97,20 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0"><?php             
+            <h1 class="m-0"><?php
             echo isset($titulo) ? $titulo : '' ?></h1>
           </div><!-- /.col -->
-          <?php 
-          
+          <?php
+
           if(isset($breadcrumb) && is_array($breadcrumb)){
-              ?>          
+              ?>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <?php    
-                
+                <?php
+
                 foreach($breadcrumb as $b){
                 ?>
-              <li class="breadcrumb-item"><?php echo $b; ?></li>             
+              <li class="breadcrumb-item"><?php echo $b; ?></li>
               <?php
                 }?>
             </ol>
