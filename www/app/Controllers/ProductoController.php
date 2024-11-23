@@ -1,6 +1,8 @@
 <?php
 
-class ProductoController
+class ProductoController extends \Com\FernandezFran\Core\BaseController
 {
+
+
 
 }

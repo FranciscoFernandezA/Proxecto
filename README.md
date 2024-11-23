@@ -135,4 +135,4 @@ Las credenciales por defecto para la conexión son:
 
 | Usuario | Clave | Base de datos |
 |:---:|:---:|:---:|
-| admin | daw2pass | myproject-db |
+| admin | FernandezFranpass | myproject-db |

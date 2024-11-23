@@ -1,0 +1,14 @@
+Nos basamos en dashboard 1.
+1. Modificamos la barra superior dejando sólo logout y fullscreen
+2. Cambiamos título de app en barra izquierda y nombre de usuario por usuario
+3. Menú izquierdo:
+	3.1. Creamos link a home (Ponlo como active)
+	3.2. Desplegable administración con 3 elementos. Usa Dashboard como base y quita los active y menu open de dicho submenú. Cambia los iconos por fas-cube, fas-cubes y fas-parachute.
+4. Cambia el texto DashBoard por Panel de control
+5. Pon como miga de pan Inicio y ponlo como active.
+6. Modifica los cuadros con colores, tendremos 3 Productos, Categorías y proveedores. Para hacer que en las pantallas grandes éstos ocupen una sola línea cambia col-lg-3 por col-lg. Para que en el resto de pantallas, hay un div por fila, escribe col-12.
+7. Añade la tabla de productos copiando la de dashboard3 y poniéndole que ocupe todo el ancho (col-12). Recuerda que el código que copies debe estar dentro de un <div class="row"></div>
+8. Elimina demo.js como dependencia.
+9. Renombra la carpeta dist a assets y reemplaza dist/ por assets/
+10. Elimina el preloader.
+11. Borra todo lo que sobra hasta quedarte con el contenido que aparece en la imagen.
