@@ -10,7 +10,7 @@
   ?>
   <div class="col-12">
     <div class="card shadow mb-4">
-      <form method="get" action="/usuarios">
+      <form method="get" action="/productos" >
         <div
           class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
           <h6 class="m-0 font-weight-bold text-primary">Filtros</h6>
@@ -67,30 +67,30 @@
       <div class="card-body" id="card_table">
         <div id="button_container" class="mb-3"></div>
         <?php
-        if (count($usuarios) > 0) {
+        if (count($productos) > 0) {
           ?>
           <table id="tabladatos" class="table table-striped">
             <thead>
             <tr>
               <th>Nombre</th>
-              <th>Email</th>
-              <th>Teléfono</th>
-              <th>Dirección</th>
-              <th>Tipo de Usuario</th>
-              <th>Fecha de Registro</th>
+              <th>Descripcion</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+              <th>id_Categoria</th>
+              <th>Fecha de Creación</th>
             </tr>
             </thead>
             <tbody>
             <?php
-            foreach ($usuarios as $usuario) {
+            foreach ($productos as $producto) {
               ?>
               <tr>
-                <td><?php echo htmlspecialchars($usuario['nombre']); ?></td>
-                <td><?php echo htmlspecialchars($usuario['email']); ?></td>
-                <td><?php echo htmlspecialchars($usuario['telefono'] ?? 'No registrado'); ?></td>
-                <td><?php echo htmlspecialchars($usuario['direccion'] ?? 'No registrada'); ?></td>
-                <td><?php echo ucfirst($usuario['tipo_usuario']); ?></td>
-                <td><?php echo date('d/m/Y H:i:s', strtotime($usuario['fecha_registro'])); ?></td>
+                <td><?php echo htmlspecialchars($producto['nombre']); ?></td>
+                <td><?php echo htmlspecialchars($producto['descripcion']); ?></td>
+                <td><?php echo htmlspecialchars($producto['precio']); ?></td>
+                <td><?php echo htmlspecialchars($producto['stock']); ?></td>
+                <td><?php echo ucfirst($producto['id_categoria']); ?></td>
+                <td><?php echo date('d/m/Y H:i:s', strtotime($producto['fecha_creacion'])); ?></td>
               </tr>
               <?php
             }

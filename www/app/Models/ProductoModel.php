@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Com\FernandezFran\Models;
 
-class UsuarioModel extends \Com\FernandezFran\Core\BaseModel
+class ProductoModel extends \Com\FernandezFran\Core\BaseModel
 {
   private const SELECT_FROM = 'SELECT * FROM productos';
 

@@ -6,7 +6,7 @@ namespace Com\FernandezFran\Models;
 
 class UsuarioModel extends \Com\FernandezFran\Core\BaseModel
 {
-  private const SELECT_FROM = 'SELECT * FROM productos';
+  private const SELECT_FROM = 'SELECT * FROM usuarios';
 
   public function getAll(): array
   {
