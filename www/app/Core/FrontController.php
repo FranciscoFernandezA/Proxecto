@@ -39,7 +39,7 @@ class FrontController
     Route::add('/productos',
       function () {
         $controlador = new \Com\FernandezFran\Controllers\ProductoController();
-        $controlador->mostrarTodos();
+        $controlador->mostrarTodosLista();
       }
       , 'get');
     Route::add('/productos/card',

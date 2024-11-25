@@ -7,14 +7,11 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
 {
   public function mostrarTodos()
   {
-
     $data = [];
     $data['titulo'] = 'Catálogo de Productos';
     $data['seccion'] = '/productos';
 
-
     $modelo = new \Com\FernandezFran\Models\ProductoModel();
-
 
     // Procesar los filtros recibidos por GET
     $data['input'] = filter_var_array($_GET, FILTER_SANITIZE_SPECIAL_CHARS);
@@ -36,6 +33,8 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
       $data
     );
   }
+
+
   public function mostrarTodoslista()
   {
 
