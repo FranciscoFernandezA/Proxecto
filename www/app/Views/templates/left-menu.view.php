@@ -27,6 +27,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="/productos" class="nav-link <?php echo isset($seccion) && $seccion === '/productos/card' ? 'active' : ''; ?>">
+                  <i class="fas fa-boxes nav-icon"></i>
+                  <p>Catálogo adecentado</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="/usuarios" class="nav-link <?php echo isset($seccion) && $seccion === '/usuarios' ? 'active' : ''; ?>">
                   <i class="fas fa-users nav-icon"></i>
                   <p>Usuarios</p>

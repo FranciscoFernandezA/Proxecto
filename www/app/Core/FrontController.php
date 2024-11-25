@@ -42,7 +42,12 @@ class FrontController
         $controlador->mostrarTodos();
       }
       , 'get');
-
+    Route::add('/productos/card',
+      function () {
+        $controlador = new \Com\FernandezFran\Controllers\ProductoController();
+        $controlador->mostrarTodos();
+      }
+      , 'get');
     Route::add('/usuarios/ordered',
       function () {
         $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
