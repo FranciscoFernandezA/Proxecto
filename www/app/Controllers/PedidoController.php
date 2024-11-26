@@ -12,22 +12,24 @@ class PedidoController extends \Com\FernandezFran\Core\BaseController
     $data['titulo'] = 'Todos los pedidos';
     $data['seccion'] = '/pedidos';
 
-    $modelo = new \Com\FernandezFran\Models\PedidoModelModel();
+    $modelo = new \Com\FernandezFran\Models\PedidoModel();
 
     // Procesar los filtros recibidos por GET
     $data['input'] = filter_var_array($_GET, FILTER_SANITIZE_SPECIAL_CHARS);
 
-    if (isset($_GET['tipo_usuario']) && in_array($_GET['tipo_usuario'], ['admin', 'cliente'], true)) {
+    if (isset($_GET['estado']) && in_array($_GET['estado'], ['pagado', 'pendiente', 'enviado', 'entregado', 'cancelado'], true)) {
       // Filtrar por tipo
-      $data['usuarios'] = $modelo->filterByTipo($_GET['tipo_usuario']);
-    } elseif (isset($_GET['nombre']) && !empty($_GET['nombre'])) {
-      // Filtrar por nombre
-      $data['usuarios'] = $modelo->filterByName($_GET['nombre']);
-    } elseif (isset($_GET['telefono']) && !empty($_GET['telefono'])) {
-      // Filtrar por número de teléfono
-      $data['usuarios'] = $modelo->filterByTelefono($_GET['telefono']);
-    } else {
-      $data['usuarios'] = $modelo->getAll();
+      $data['pedidos'] = $modelo->filterByEstado($_GET['estado']);
+    }else {
+        $data['pedidos'] = $modelo->getAll();
+      }
+
+      // Renderizar las vistas con los datos
+      $this->view->showViews(
+        ['templates/header.view.php', 'pedidos.view.php', 'templates/footer.view.php'],
+        $data
+      );
     }
+
 
   }

@@ -15,11 +15,17 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-database"></i>
               <p>
-                DB
+                ADMIN
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/pedidos" class="nav-link <?php echo isset($seccion) && $seccion === '/pedidos' ? 'active' : ''; ?>">
+                  <i class="fas fa-cart-plus nav-icon"></i>
+                  <p>Pedidos</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="/productos" class="nav-link <?php echo isset($seccion) && $seccion === '/productos' ? 'active' : ''; ?>">
                   <i class="fas fa-boxes nav-icon"></i>

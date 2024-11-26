@@ -42,6 +42,12 @@ class FrontController
         $controlador->mostrarTodosLista();
       }
       , 'get');
+    Route::add('/pedidos',
+      function () {
+        $controlador = new \Com\FernandezFran\Controllers\PedidoController();
+        $controlador->mostrarTodos();
+      }
+      , 'get');
     Route::add('/productos/card',
       function () {
         $controlador = new \Com\FernandezFran\Controllers\ProductoController();
@@ -61,21 +67,6 @@ class FrontController
         $controlador->mostrarUsuariosStandard();
       }
       , 'get');
-
-    Route::add('/usuarios/carlos',
-      function () {
-        $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
-        $controlador->mostrarUsuariosCarlos();
-      }
-      , 'get');
-
-    Route::add('/proveedores',
-      function () {
-        $controlador = new \Com\FernandezFran\Controllers\ProveedorController();
-        $controlador->mostrarTodos();
-      }
-      , 'get');
-
     Route::methodNotAllowed(
       function () {
         $controller = new \Com\FernandezFran\Controllers\ErroresController();
