@@ -15,7 +15,6 @@
           class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
           <h6 class="m-0 font-weight-bold text-primary">Filtros</h6>
         </div>
-        <!-- Card Body -->
         <div class="card-body">
           <div class="row">
             <div class="col-12 col-lg-3">
@@ -63,7 +62,6 @@
         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary">Usuarios</h6>
       </div>
-      <!-- Card Body -->
       <div class="card-body" id="card_table">
         <div id="button_container" class="mb-3"></div>
         <?php

@@ -3,6 +3,11 @@ declare(strict_types=1);
 
 namespace Com\FernandezFran\Controllers;
 
+use Com\FernandezFran\Models\UsuarioModel;
+
+
+use PDOException;
+
 class UsuarioController extends \Com\FernandezFran\Core\BaseController
 {
 
@@ -71,4 +76,38 @@ class UsuarioController extends \Com\FernandezFran\Core\BaseController
       $data
     );
   }
+
+
+
+  public function mostrarRegistro()
+  {
+    $data = [];
+    $data['titulo'] = 'Registro de Usuario';
+    $data['seccion'] = '/registro';
+
+    // Compruebo si el formulario se envió
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+      $nombre = $_POST['nombre'] ?? '';
+      $apellidos = $_POST['apellidos'] ?? '';
+      $email = $_POST['email'] ?? '';
+      $password = $_POST['password'] ?? '';
+      $telefono = $_POST['telefono'] ?? '';
+      $direccion = $_POST['direccion'] ?? '';
+
+      $modelo = new \Com\FernandezFran\Models\UsuarioModel();
+
+      $resultado = $modelo->registrarUsuario($nombre, $apellidos, $email, $password, $telefono, $direccion);
+
+      $data['mensaje'] = $resultado;
+    }
+
+    $this->view->showViews(
+      ['templates/header.view.php', 'registro.view.php', 'templates/footer.view.php'],
+      $data
+    );
+  }
+
+
+
 }

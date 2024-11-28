@@ -13,6 +13,22 @@
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
             <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                CLIENTES
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/registro" class="nav-link <?php echo isset($seccion) && $seccion === '/registro' ? 'active' : ''; ?>">
+                  <i class="fas fa-user nav-icon"></i>
+                  <p>Registrate</p>
+                </a>
+              </li>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-database"></i>
               <p>
                 ADMIN
@@ -42,12 +58,6 @@
                 <a href="/usuarios" class="nav-link <?php echo isset($seccion) && $seccion === '/usuarios' ? 'active' : ''; ?>">
                   <i class="fas fa-users nav-icon"></i>
                   <p>Usuarios</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/usuarios/ordered" class="nav-link <?php echo isset($seccion) && $seccion === '/usuarios/ordered' ? 'active' : ''; ?>">
-                  <i class="fas fa-users nav-icon"></i>
-                  <p>Ordenados salar</p>
                 </a>
               </li>
             </ul>

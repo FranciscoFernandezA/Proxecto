@@ -22,13 +22,15 @@ class FrontController
         $controller->error404();
       }
     );
+    Route::add('/registro', function () {
+      $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
+      $controlador->mostrarRegistro();
+    }, 'get');
 
-    Route::add('/usuario/test',
-      function () {
-        $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
-        $controlador->test();
-      }
-      , 'get');
+    Route::add('/registro', function () {
+      $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
+      $controlador->mostrarRegistro();
+    }, 'post');
 
     Route::add('/usuarios',
       function () {

@@ -16,6 +16,7 @@ class View {
         //   es un array del tipo clave => valor (opcional).
         //Cogemos una instancia de nuestra clase de configuración.
 
+
         //Creamos la ruta real a la plantilla
         $path = $_ENV['folder.views'] . $name;
 
@@ -41,6 +42,7 @@ class View {
         //$vars - contenedor de variables,
         //   es un array del tipo clave => valor (opcional).
         //Cogemos una instancia de nuestra clase de configuracion.
+
 
         foreach ($views as $v) {
             //Creamos la ruta real a la plantilla

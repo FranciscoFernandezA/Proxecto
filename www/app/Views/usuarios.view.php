@@ -77,7 +77,6 @@
               <th>Teléfono</th>
               <th>Dirección</th>
               <th>Tipo de Usuario</th>
-              <th>Fecha de Registro</th>
             </tr>
             </thead>
             <tbody>
@@ -90,7 +89,6 @@
                 <td><?php echo htmlspecialchars($usuario['telefono'] ?? 'No registrado'); ?></td>
                 <td><?php echo htmlspecialchars($usuario['direccion'] ?? 'No registrada'); ?></td>
                 <td><?php echo ucfirst($usuario['tipo_usuario']); ?></td>
-                <td><?php echo date('d/m/Y H:i:s', strtotime($usuario['fecha_registro'])); ?></td>
               </tr>
               <?php
             }
