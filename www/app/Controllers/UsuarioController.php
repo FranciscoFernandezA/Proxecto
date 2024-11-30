@@ -77,6 +77,10 @@ class UsuarioController extends \Com\FernandezFran\Core\BaseController
     );
   }
 
+
+
+
+
   public function mostrarRegistro()
   {
     $data = [];
@@ -114,17 +118,15 @@ class UsuarioController extends \Com\FernandezFran\Core\BaseController
     $data['seccion'] = '/login';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
       $email = $_POST['email'] ?? '';
       $password = $_POST['password'] ?? '';
 
       if (empty($email) || empty($password)) {
         $mensaje = "Rellena los campor obligatorios";
       } else {
-
         $modelo = new \Com\FernandezFran\Models\UsuarioModel();
-
         $mensaje = $modelo->loginUsuario($email, $password);
+
       }
       $data['mensaje'] = $mensaje;
     }
@@ -133,6 +135,17 @@ class UsuarioController extends \Com\FernandezFran\Core\BaseController
       $data
     );
 
+  }
+  public function cerrarSesion() {
+    if (session_status() === PHP_SESSION_NONE) {
+      session_start();
+    }
+
+    if (PHP_SESSION_ACTIVE) {
+      session_unset();
+      session_destroy();
+      exit();
+    }
   }
 
 

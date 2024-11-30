@@ -7,8 +7,13 @@ use Steampixel\Route;
 class FrontController
 {
 
+
   static function main()
   {
+    if (!isset($_SESSION['nombre'])) {
+      session_start();
+    }
+
     Route::add('/',
       function () {
         $controlador = new \Com\FernandezFran\Controllers\InicioController();
@@ -24,32 +29,52 @@ class FrontController
     );
 
 
+    if (!isset($_SESSION['nombre'])) {
+      Route::add('/logout', function () {
+        header("Location: /");
+        exit;
+      }, 'get');
 
-    Route::add('/registro', function () {
-      $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
-      $controlador->mostrarRegistro();
-    }, 'get');
+      Route::add('/login', function () {
+        $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
+        $controlador->mostrarLogin();
+      }, 'get');
 
-    Route::add('/registro', function () {
-      $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
-      $controlador->mostrarRegistro();
-    }, 'post');
-
-
-
-
-    Route::add('/login', function () {
-      $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
-      $controlador->mostrarLogin();
-    }, 'get');
-
-    Route::add('/login', function () {
-      $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
-      $controlador->mostrarLogin();
-    }, 'post');
+      Route::add('/login', function () {
+        $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
+        $controlador->mostrarLogin();
+      }, 'post');
 
 
+      Route::add('/registro', function () {
+        $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
+        $controlador->mostrarRegistro();
+      }, 'get');
 
+      Route::add('/registro', function () {
+        $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
+        $controlador->mostrarRegistro();
+      }, 'post');
+
+    } else {
+      Route::add('/login', function () {
+        header("Location: /");
+        exit;
+      }, 'get');
+
+      Route::add('/registro', function () {
+        header("Location: /");
+        exit;
+      }, 'get');
+
+
+      Route::add('/logout', function () {
+        header("Location: /");
+        $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
+        $controlador->cerrarSesion();
+      }, 'get');
+
+    }
 
 
     Route::add('/usuarios',

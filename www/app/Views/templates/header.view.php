@@ -4,17 +4,21 @@
   <base href="/">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard</title>
-
-
-
-
+  <title>NoCap Tienda</title>
   <!-- Google Font: Material icons-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/6.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link
+    href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/1.0.0/css/font-awesome.css"
+    rel="stylesheet"  type='text/css'>
+  <link
+    href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/font-awesome.css"
+    rel="stylesheet"  type='text/css'>
+
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bootstrap 4 -->
@@ -34,48 +38,166 @@
   <!-- Select 2 -->
   <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-</head>
-<body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-    </ul>
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-          <i class="text-danger fas fa-sign-out-alt"></i>
-        </a>
-      </li>
-    </ul>
+  <!-- Custom style -->
+  <link rel="stylesheet" href="assets/css/nocap.css">
+</head>
+<body class="hold-transition sidebar-collapse layout-top-nav">
+<div class="wrapper">
+
+  <!-- Navbar-->
+  <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+    <div class="container">
+      <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+        <?php if(isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] == 'admin'){ ?>
+
+          <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+          </li>
+
+          <?php } ?>
+          <li class="nav-item">
+            <a href="/" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">Contact</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Dropdown</a>
+            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+              <li><a href="#" class="dropdown-item">Some action </a></li>
+              <li><a href="#" class="dropdown-item">Some other action</a></li>
+            </ul>
+          </li>
+        </ul>
+      <!-- Right navbar links -->
+      <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            <img src="assets/img/cart-shopping-solid.svg" class="icon-cart">
+
+
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <a href="#" class="dropdown-item">
+              <!-- Message Start -->
+              <div class="media">
+                <div class="media-body">
+                  <h3 class="dropdown-item-title">
+                    Brad Diesel
+                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                  </h3>
+                  <p class="text-sm">Call me whenever you can...</p>
+                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                </div>
+              </div>
+              <!-- Message End -->
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">
+              <!-- Message Start -->
+              <div class="media">
+                <div class="media-body">
+                  <h3 class="dropdown-item-title">
+                    John Pierce
+                    <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
+                  </h3>
+                  <p class="text-sm">I got your message bro</p>
+                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                </div>
+              </div>
+              <!-- Message End -->
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">
+              <!-- Message Start -->
+              <div class="media">
+                <div class="media-body">
+                  <h3 class="dropdown-item-title">
+                    Nora Silvester
+                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
+                  </h3>
+                  <p class="text-sm">The subject goes here</p>
+                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                </div>
+              </div>
+              <!-- Message End -->
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+          </div>
+        </li>
+        <!-- User Dropdown Menu -->
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            <img src="assets/img/user-solid.svg" class="icon-user">
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <?php if(isset($_SESSION['nombre'])){ ?>
+            <a href="#" class="dropdown-item">
+              <!-- Message Start -->
+              <div class="media">
+                <div class="media-body">
+                  <h3 class="dropdown-item-title">
+                    Ver mis pedidos
+                    <span class="float-right text-sm text-danger"></span>
+                  </h3>
+                </div>
+              </div>
+              <!-- Message End -->
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="/logout" class="dropdown-item dropdown-footer">Cerrar Sesión</a>
+          </div>
+          <?php }else{ ?>
+          <a href="/login" class="dropdown-item">
+            <!-- Message Start -->
+            <div class="media">
+              <div class="media-body">
+                <h3 class="dropdown-item-title">
+                  Iniciar Sesion
+                  <span class="float-right text-sm text-danger"></span>
+                </h3>
+              </div>
+            </div>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="/registro" class="dropdown-item">
+            <div class="media">
+              <div class="media-body">
+                <h3 class="dropdown-item-title">
+                  Registrate
+  <?php }?>
+                </h3>
+              </div>
+            </div>
+          </a>
+      </div>
+        </li>
+      </ul>
+    </div>
   </nav>
-  <!-- /.navbar -->
+
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="/" class="brand-link">
-      <img src="assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">DWES App</span>
-    </a>
-
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="assets/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
         <div class="info">
-          <a href="#" class="d-block">Usuario</a>
+          <?php
+          if (isset($_SESSION['nombre'])): ?>
+            <p style="color: white"><?= htmlspecialchars($_SESSION['nombre']); ?></p>
+          <?php endif; ?>
         </div>
+
       </div>
 
       <?php
@@ -84,6 +206,8 @@
     </div>
     <!-- /.sidebar -->
   </aside>
+
+
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">

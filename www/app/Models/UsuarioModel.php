@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Com\FernandezFran\Models;
 
+use Com\FernandezFran\Controllers\UsuarioController;
+
 class UsuarioModel extends \Com\FernandezFran\Core\BaseModel
 {
   private const SELECT_FROM = 'SELECT * FROM usuarios';
@@ -46,6 +48,34 @@ class UsuarioModel extends \Com\FernandezFran\Core\BaseModel
     $stmt = $this->pdo->prepare(self::SELECT_FROM . ' WHERE tipo_usuario = ?');
     $stmt->execute(['cliente']);
     return $stmt->fetchAll();
+  }
+
+
+
+  public function loginUsuario($email, $password)
+  {
+    try {
+      $stmt = $this->pdo->prepare("SELECT id_usuario, tipo_usuario, nombre, password FROM usuarios WHERE email = :email");
+      $stmt->execute(['email' => $email]);
+      $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+      if ($usuario && password_verify($password, $usuario['password'])) {
+        if (session_status() === PHP_SESSION_NONE) {
+          session_start();
+        }
+        $_SESSION['usuario_id'] = $usuario['id_usuario'];
+        $_SESSION['nombre'] = $usuario['nombre'];
+        $_SESSION['email'] = $email;
+        $_SESSION['tipo_usuario'] = $usuario['tipo_usuario'];
+
+        header("Location: /");
+      } else {
+        return "Correo o contraseña incorrectos.";
+      }
+    } catch (PDOException $e) {
+      error_log("Error en login de usuario: " . $e->getMessage());
+      return "Error al iniciar sesión. Por favor, intenta de nuevo más tarde.";
+    }
   }
 
 
@@ -97,7 +127,9 @@ class UsuarioModel extends \Com\FernandezFran\Core\BaseModel
         'direccion' => $direccion
       ]);
 
-      return "Registro exitoso.";
+      UsuarioModel::loginUsuario($email, $password);
+      header("Location: /");
+
     } catch (\PDOException $e) {
       error_log("Error en registro de usuario: " . $e->getMessage());
       return "Error al registrar el usuario. Por favor, intenta de nuevo más tarde.".$e->getMessage();
@@ -106,26 +138,6 @@ class UsuarioModel extends \Com\FernandezFran\Core\BaseModel
 
 
 
-
-  public function loginUsuario($email, $password)
-  {
-    try {
-      $stmt = $this->pdo->prepare("SELECT id_usuario, password FROM usuarios WHERE email = :email");
-      $stmt->execute(['email' => $email]);
-      $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
-
-      if ($usuario && password_verify($password, $usuario['password'])) {
-        session_start();
-        $_SESSION['usuario_id'] = $usuario['id_usuario'];
-        return "Bienvenido, has iniciado sesión correctamente.";
-      } else {
-        return "Correo o contraseña incorrectos.";
-      }
-    } catch (PDOException $e) {
-      error_log("Error en login de usuario: " . $e->getMessage());
-      return "Error al iniciar sesión. Por favor, intenta de nuevo más tarde.";
-    }
-  }
 }
 
 

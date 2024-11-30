@@ -151,6 +151,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
           </div>
         </li>
+        <?php if(isset($_SESSION['nombre'])){ ?>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout" role="button">
+            <i class="text-danger fas fa-sign-out-alt"></i>
+          </a>
+        </li>
+        <?php } ?>
         <!-- Notifications Dropdown Menu -->
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
