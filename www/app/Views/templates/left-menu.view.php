@@ -26,6 +26,12 @@
                   <p>Registrate</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="/login" class="nav-link <?php echo isset($seccion) && $seccion === '/login' ? 'active' : ''; ?>">
+                  <i class="fas fa-user nav-icon"></i>
+                  <p>Inicia Sesión</p>
+                </a>
+              </li>
           </li>
           <li class="nav-item menu-open">
             <a href="#" class="nav-link">

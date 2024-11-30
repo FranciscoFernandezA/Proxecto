@@ -83,11 +83,11 @@ class UsuarioModel extends \Com\FernandezFran\Core\BaseModel
       if ($stmt->fetch()) {
         return "El usuario o correo ya está registrado.";
       }
-
       $stmt = $this->pdo->prepare("
                 INSERT INTO usuarios (nombre, apellidos, email, password, telefono, direccion)
                 VALUES (:nombre, :apellidos, :email, :password, :telefono, :direccion)
             ");
+
       $stmt->execute([
         'nombre' => $nombre,
         'apellidos' => $apellidos,
@@ -104,6 +104,28 @@ class UsuarioModel extends \Com\FernandezFran\Core\BaseModel
     }
   }
 
+
+
+
+  public function loginUsuario($email, $password)
+  {
+    try {
+      $stmt = $this->pdo->prepare("SELECT id_usuario, password FROM usuarios WHERE email = :email");
+      $stmt->execute(['email' => $email]);
+      $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+      if ($usuario && password_verify($password, $usuario['password'])) {
+        session_start();
+        $_SESSION['usuario_id'] = $usuario['id_usuario'];
+        return "Bienvenido, has iniciado sesión correctamente.";
+      } else {
+        return "Correo o contraseña incorrectos.";
+      }
+    } catch (PDOException $e) {
+      error_log("Error en login de usuario: " . $e->getMessage());
+      return "Error al iniciar sesión. Por favor, intenta de nuevo más tarde.";
+    }
+  }
 }
 
 

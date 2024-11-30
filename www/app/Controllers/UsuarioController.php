@@ -77,8 +77,6 @@ class UsuarioController extends \Com\FernandezFran\Core\BaseController
     );
   }
 
-
-
   public function mostrarRegistro()
   {
     $data = [];
@@ -106,6 +104,35 @@ class UsuarioController extends \Com\FernandezFran\Core\BaseController
       ['templates/header.view.php', 'registro.view.php', 'templates/footer.view.php'],
       $data
     );
+  }
+
+
+  public function mostrarLogin()
+  {
+    $data = [];
+    $data['titulo'] = 'Iniciar sesión';
+    $data['seccion'] = '/login';
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+      $email = $_POST['email'] ?? '';
+      $password = $_POST['password'] ?? '';
+
+      if (empty($email) || empty($password)) {
+        $mensaje = "Rellena los campor obligatorios";
+      } else {
+
+        $modelo = new \Com\FernandezFran\Models\UsuarioModel();
+
+        $mensaje = $modelo->loginUsuario($email, $password);
+      }
+      $data['mensaje'] = $mensaje;
+    }
+    $this->view->showViews(
+      ['templates/header.view.php', 'login.view.php', 'templates/footer.view.php'],
+      $data
+    );
+
   }
 
 

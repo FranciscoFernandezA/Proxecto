@@ -22,6 +22,9 @@ class FrontController
         $controller->error404();
       }
     );
+
+
+
     Route::add('/registro', function () {
       $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
       $controlador->mostrarRegistro();
@@ -31,6 +34,23 @@ class FrontController
       $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
       $controlador->mostrarRegistro();
     }, 'post');
+
+
+
+
+    Route::add('/login', function () {
+      $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
+      $controlador->mostrarLogin();
+    }, 'get');
+
+    Route::add('/login', function () {
+      $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
+      $controlador->mostrarLogin();
+    }, 'post');
+
+
+
+
 
     Route::add('/usuarios',
       function () {
