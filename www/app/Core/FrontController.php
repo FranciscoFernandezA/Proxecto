@@ -107,7 +107,10 @@ class FrontController
       }
       , 'get');
 
-
+    Route::add('/productos/ver/([0-9]+)', function ($id) {
+      $controlador = new \App\Controllers\ProductoController();
+      $controlador->verProducto($id);
+    }, 'get');
 
     //-----------  PEDIDOS  ------------//
     Route::add('/pedidos',

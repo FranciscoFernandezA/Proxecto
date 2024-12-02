@@ -60,7 +60,7 @@
     <div class="card shadow mb-4">
       <div
         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-        <h6 class="m-0 font-weight-bold text-primary">Usuarios</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Productos</h6>
       </div>
       <div class="card-body" id="card_table">
         <div id="button_container" class="mb-3"></div>
@@ -89,6 +89,9 @@
                 <td><?php echo htmlspecialchars($producto['stock']); ?></td>
                 <td><?php echo ucfirst($producto['id_categoria']); ?></td>
                 <td><?php echo date('d/m/Y H:i:s', strtotime($producto['fecha_creacion'])); ?></td>
+                <td>
+                  <a href="/productos/ver/<?php echo $producto['id_producto']; ?>" class="btn btn-info btn-sm">Ver/Editar</a>
+                </td>
               </tr>
               <?php
             }
