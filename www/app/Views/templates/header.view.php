@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +16,7 @@
   <link
     href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/1.0.0/css/font-awesome.css"
     rel="stylesheet"  type='text/css'>
+
   <link
     href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/font-awesome.css"
     rel="stylesheet"  type='text/css'>
@@ -130,7 +132,7 @@
               <!-- Message End -->
             </a>
             <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+            <a href="#" class="dropdown-item dropdown-footer">Pagar</a>
           </div>
         </li>
         <!-- User Dropdown Menu -->

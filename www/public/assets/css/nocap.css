@@ -1,4 +1,13 @@
 
-i{
-  font-size: 1.8px !important;
+
+/*---------------------- HEADER ----------------------------*/
+
+
+.icon-cart  .icon-user  {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  object-fit: contain;
 }
+
+

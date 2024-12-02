@@ -27,7 +27,7 @@ class FrontController
         $controller->error404();
       }
     );
-
+    //----------- SESIÓN ------------//
 
     if (!isset($_SESSION['nombre'])) {
       Route::add('/logout', function () {
@@ -77,22 +77,27 @@ class FrontController
     }
 
 
-    Route::add('/usuarios',
+    //----------- PRODUCTOS ------------//
+
+
+    Route::add('/productos/nuevo',
       function () {
-        $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
-        $controlador->mostrarTodos();
+        $controlador = new \Com\FernandezFran\Controllers\ProductoController();
+        $controlador->mostrarAgregarProducto();
       }
       , 'get');
+
+    Route::add('/productos/nuevo',
+      function () {
+        $controlador = new \Com\FernandezFran\Controllers\ProductoController();
+        $controlador->mostrarAgregarProducto();
+      }
+      , 'post');
+
     Route::add('/productos',
       function () {
         $controlador = new \Com\FernandezFran\Controllers\ProductoController();
         $controlador->mostrarTodosLista();
-      }
-      , 'get');
-    Route::add('/pedidos',
-      function () {
-        $controlador = new \Com\FernandezFran\Controllers\PedidoController();
-        $controlador->mostrarTodos();
       }
       , 'get');
     Route::add('/productos/card',
@@ -101,6 +106,31 @@ class FrontController
         $controlador->mostrarTodos();
       }
       , 'get');
+
+
+
+    //-----------  PEDIDOS  ------------//
+    Route::add('/pedidos',
+      function () {
+        $controlador = new \Com\FernandezFran\Controllers\PedidoController();
+        $controlador->mostrarTodos();
+      }
+      , 'get');
+
+
+
+
+
+
+    //-------------- USUARIOS -------------//
+
+    Route::add('/usuarios',
+      function () {
+        $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
+        $controlador->mostrarTodos();
+      }
+      , 'get');
+
     Route::add('/usuarios/ordered',
       function () {
         $controlador = new \Com\FernandezFran\Controllers\UsuarioController();
@@ -114,6 +144,7 @@ class FrontController
         $controlador->mostrarUsuariosStandard();
       }
       , 'get');
+
     Route::methodNotAllowed(
       function () {
         $controller = new \Com\FernandezFran\Controllers\ErroresController();

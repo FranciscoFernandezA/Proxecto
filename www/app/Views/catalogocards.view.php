@@ -19,7 +19,8 @@
 
             <div class="col" style="margin-bottom: 15px">
               <div class="card h-100">
-                <img src="/assets/img/cap.jpg" class="card-img-top" alt="">
+                <img src="/assets/img/gorras/<?= htmlspecialchars($producto['imagen']); ?>" class="card-img-top" alt="">
+
                 <div class="card-body">
                   <h5 class="card-title"><?php echo htmlspecialchars($producto['nombre']); ?></h5>
                   <p class="card-text">Gorra verde tal</p>

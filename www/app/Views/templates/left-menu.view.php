@@ -49,6 +49,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="/productos/nuevo" class="nav-link <?php echo isset($seccion) && $seccion === '/productos/nuevo' ? 'active' : ''; ?>">
+                  <i class="fas fa-boxes nav-icon"></i>
+                  <p>Nuevo Producto</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="/productos" class="nav-link <?php echo isset($seccion) && $seccion === '/productos' ? 'active' : ''; ?>">
                   <i class="fas fa-boxes nav-icon"></i>
                   <p>Catálogo</p>
