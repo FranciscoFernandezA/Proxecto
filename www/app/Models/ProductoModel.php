@@ -108,7 +108,7 @@ class ProductoModel extends \Com\FernandezFran\Core\BaseModel
   }
 
 
-  public function actualizarProducto($id, $nombre, $descripcion, $precio, $stock, $id_categoria, $id_marca)
+  public function actualizarProducto($id, $nombre, $descripcion, $precio, $stock, $id_categoria, $id_marca, $imagen)
   {
     $query = "
         UPDATE productos
@@ -118,7 +118,8 @@ class ProductoModel extends \Com\FernandezFran\Core\BaseModel
             precio = :precio,
             stock = :stock,
             id_categoria = :id_categoria,
-            id_marca = :id_marca
+            id_marca = :id_marca,
+            imagen = :imagen
         WHERE id_producto = :id_producto";
 
     $stmt = $this->pdo->prepare($query);
@@ -130,6 +131,7 @@ class ProductoModel extends \Com\FernandezFran\Core\BaseModel
       'stock' => $stock,
       'id_categoria' => $id_categoria,
       'id_marca' => $id_marca,
+      'imagen' => $imagen,
     ]);
   }
 

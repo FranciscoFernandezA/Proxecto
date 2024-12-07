@@ -1,6 +1,6 @@
 <div class="container mt-5">
   <h2>Editar Producto</h2>
-  <form action="/productos/editar/<?php echo htmlspecialchars($producto['id_producto']); ?>" method="post">
+  <form action="/productos/editar/<?php echo htmlspecialchars($producto['id_producto']); ?>" method="post" enctype="multipart/form-data">
     <input type="hidden" name="id" value="<?php echo htmlspecialchars($producto['id_producto']); ?>">
     <div class="form-group">
       <label for="nombre">Nombre del Producto:</label>
@@ -42,6 +42,14 @@
           </option>
         <?php } ?>
       </select>
+    </div>
+    <div class="form-group">
+      <label for="imagen">Imagen del Producto:</label>
+      <input type="file" name="imagen" id="imagen" class="form-control">
+      <?php if (!empty($producto['imagen'])) { ?>
+        <p>Imagen actual:</p>
+        <img src="/assets/img/gorras/<?php echo htmlspecialchars($producto['imagen']); ?>" alt="Imagen del producto" style="max-width: 150px;">
+      <?php } ?>
     </div>
     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     <a href="/productos" class="btn btn-secondary">Cancelar</a>

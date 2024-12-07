@@ -47,7 +47,6 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
 
     $modelo = new \Com\FernandezFran\Models\ProductoModel();
 
-
     // Procesar los filtros recibidos por GET
     $data['input'] = filter_var_array($_GET, FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -70,7 +69,6 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
   }
 
   public function mostrarAgregarProducto() {
-
 
     $data = [];
     $data['titulo'] = 'Nuevo producto';
@@ -119,12 +117,31 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
 
   public function editar($id)
   {
-
-
     if (!$id) {
       header('Location: /productos');
       exit;
     }
+
+    $data = [];
+    $data['titulo'] = 'Editar producto';
+    $data['seccion'] = '/productos/editar';
+
+    $productoModel = new \Com\FernandezFran\Models\ProductoModel();
+    $producto = $productoModel->obtenerProductoPorId($id);
+
+    if (!$producto) {
+      header('Location: /productos');
+      exit;
+    }
+
+    $marcaModel = new \Com\FernandezFran\Models\MarcaModel();
+    $categoriaModel = new \Com\FernandezFran\Models\CategoriaModel();
+    $marcas = $marcaModel->getAll();
+    $categorias = $categoriaModel->getAll();
+
+    $data['producto'] = $producto;
+    $data['marcas'] = $marcas;
+    $data['categorias'] = $categorias;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       // Validaciones para el formulario de actualización
@@ -154,41 +171,63 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
         die('Marca  inválida.');
       }
 
-      if (!$id || !$nombre || !$descripcion || !$precio || !$stock || !$id_categoria || !$id_marca) {
+
+
+      if (isset($_FILES['imagen']) && $_FILES['imagen']['tmp_name']) {
+        // Validación de extensión
+        $extensionesPermitidas = ['jpg', 'jpeg', 'png'];
+        $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
+
+        if (!in_array(strtolower($extension), $extensionesPermitidas)) {
+          die('Formato de imagen no aceptado. Solo se aceptan: jpg, jpeg, png.');
+        }
+
+        // Generar un nombre temporal único
+        $nombreTemporal = uniqid('temp_', true) . '.' . $extension;
+        $target_dir = 'assets/img/gorras/';
+        $target_temp_file = $target_dir . $nombreTemporal;
+
+        // Subir la nueva imagen temporalmente
+        if (move_uploaded_file($_FILES['imagen']['tmp_name'], $target_temp_file)) {
+          // Eliminar la imagen anterior
+          if (!empty($producto['imagen'])) {
+            $imagenAnterior = $target_dir . $producto['imagen'];
+            if (file_exists($imagenAnterior)) {
+              unlink($imagenAnterior);
+            }
+          }
+
+
+          $nombreLimpio = preg_replace('/[^a-zA-Z0-9_-]/', '', strtolower($nombre));
+          $nombreImagenFinal = $id . '_' . $nombreLimpio . '.' . $extension;
+          $target_final_file = $target_dir . $nombreImagenFinal;
+
+          if (rename($target_temp_file, $target_final_file)) {
+            $nombreImagen = $nombreImagenFinal;
+          } else {
+            die('Error al renombrar la nueva imagen.');
+          }
+        } else {
+          die('Error al subir la nueva imagen.');
+        }
+
+      } else {
+        // Mantén la imagen anterior si hay un error
+        $nombreImagen = $producto['imagen'];
+      }
+
+
+      if (!$id || !$nombre || !$descripcion || !$precio || !$stock || !$id_categoria || !$id_marca || !$nombreImagen) {
         $_SESSION['error'] = 'Todos los campos son obligatorios.';
-        header('Location: /productos/editar?id=' . $id);
+        header('Location: /productos/editar/'.$id);
         exit;
       }
-      // Lógica de actualización
+
       $productoModel = new \Com\FernandezFran\Models\ProductoModel();
-      $productoModel->actualizarProducto($id, $nombre, $descripcion, $precio, $stock, $id_categoria, $id_marca);
+      $productoModel->actualizarProducto($id, $nombre, $descripcion, $precio, $stock, $id_categoria, $id_marca, $nombreImagen);
 
       $_SESSION['success'] = 'Producto actualizado correctamente.';
-      header('Location: /productos/editar?id=' . $id);
-      exit;
     }
-
-    $data = [];
-    $data['titulo'] = 'Editar producto';
-    $data['seccion'] = '/productos/editar';
-
-    $productoModel = new \Com\FernandezFran\Models\ProductoModel();
-    $producto = $productoModel->obtenerProductoPorId($id);
-
-    if (!$producto) {
-      header('Location: /productos');
-      exit;
-    }
-
-    $marcaModel = new \Com\FernandezFran\Models\MarcaModel();
-    $categoriaModel = new \Com\FernandezFran\Models\CategoriaModel();
-    $marcas = $marcaModel->getAll();
-    $categorias = $categoriaModel->getAll();
-
-    $data['producto'] = $producto;
-    $data['marcas'] = $marcas;
-    $data['categorias'] = $categorias;
-
     $this->view->showViews(
       [
         'templates/header.view.php',
@@ -197,9 +236,5 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
       ], $data
     );
   }
-
-
-
-
 
 }
