@@ -71,10 +71,11 @@
             <thead>
             <tr>
               <th>Nombre</th>
-              <th>Descripcion</th>
+              <th>Descripción</th>
               <th>Precio</th>
               <th>Cantidad</th>
-              <th>id_Categoria</th>
+              <th>Categoría</th>
+              <th>Marca</th>
               <th>Fecha de Creación</th>
             </tr>
             </thead>
@@ -84,13 +85,14 @@
               ?>
               <tr>
                 <td><?php echo htmlspecialchars($producto['nombre']); ?></td>
-                <td><?php echo htmlspecialchars($producto['descripcion']); ?></td>
+                <td><?php echo htmlspecialchars(implode(' ', array_slice(explode(' ', $producto['descripcion']), 0, 10))) . (str_word_count($producto['descripcion']) > 10 ? '...' : ''); ?></td>
                 <td><?php echo htmlspecialchars($producto['precio']); ?></td>
                 <td><?php echo htmlspecialchars($producto['stock']); ?></td>
-                <td><?php echo ucfirst($producto['id_categoria']); ?></td>
+                <td><?php echo ucfirst($producto['nombre_categoria']); ?></td>
+                <td><?php echo ucfirst($producto['nombre_marca']); ?></td>
                 <td><?php echo date('d/m/Y H:i:s', strtotime($producto['fecha_creacion'])); ?></td>
                 <td>
-                  <a href="/productos/ver/<?php echo $producto['id_producto']; ?>" class="btn btn-info btn-sm">Ver/Editar</a>
+                  <a href="/productos/editar/<?php echo $producto['id_producto']; ?>" class="btn btn-info btn-sm">Ver/Editar</a>
                 </td>
               </tr>
               <?php

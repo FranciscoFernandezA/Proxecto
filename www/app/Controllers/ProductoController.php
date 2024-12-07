@@ -116,4 +116,90 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
   }
 
 
+
+  public function editar($id)
+  {
+
+
+    if (!$id) {
+      header('Location: /productos');
+      exit;
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      // Validaciones para el formulario de actualización
+      $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+      $nombre = trim($_POST['nombre']);
+      if (empty($nombre) || strlen($nombre) > 150) {
+        die('Nombre inválido');
+      }
+      $descripcion = trim($_POST['descripcion']);
+      if (strlen($descripcion) > 500) {
+        die('Descripción inválida');
+      }
+      $precio = filter_input(INPUT_POST, 'precio', FILTER_VALIDATE_FLOAT);
+      if ($precio === false || $precio <= 0) {
+        die('Precio inválido');
+      }
+      $stock = filter_input(INPUT_POST, 'stock', FILTER_VALIDATE_INT);
+      if ($stock === false || $stock < 0) {
+        die('Stock inválido');
+      }
+      $id_categoria = filter_input(INPUT_POST, 'id_categoria', FILTER_VALIDATE_INT);
+      if (!$id_categoria || $id_categoria <= 0) {
+        die('Categoría  inválida.');
+      }
+      $id_marca = filter_input(INPUT_POST, 'id_marca', FILTER_VALIDATE_INT);
+      if (!$id_marca || $id_marca <= 0) {
+        die('Marca  inválida.');
+      }
+
+      if (!$id || !$nombre || !$descripcion || !$precio || !$stock || !$id_categoria || !$id_marca) {
+        $_SESSION['error'] = 'Todos los campos son obligatorios.';
+        header('Location: /productos/editar?id=' . $id);
+        exit;
+      }
+      // Lógica de actualización
+      $productoModel = new \Com\FernandezFran\Models\ProductoModel();
+      $productoModel->actualizarProducto($id, $nombre, $descripcion, $precio, $stock, $id_categoria, $id_marca);
+
+      $_SESSION['success'] = 'Producto actualizado correctamente.';
+      header('Location: /productos/editar?id=' . $id);
+      exit;
+    }
+
+    $data = [];
+    $data['titulo'] = 'Editar producto';
+    $data['seccion'] = '/productos/editar';
+
+    $productoModel = new \Com\FernandezFran\Models\ProductoModel();
+    $producto = $productoModel->obtenerProductoPorId($id);
+
+    if (!$producto) {
+      header('Location: /productos');
+      exit;
+    }
+
+    $marcaModel = new \Com\FernandezFran\Models\MarcaModel();
+    $categoriaModel = new \Com\FernandezFran\Models\CategoriaModel();
+    $marcas = $marcaModel->getAll();
+    $categorias = $categoriaModel->getAll();
+
+    $data['producto'] = $producto;
+    $data['marcas'] = $marcas;
+    $data['categorias'] = $categorias;
+
+    $this->view->showViews(
+      [
+        'templates/header.view.php',
+        'editarproducto.view.php',
+        'templates/footer.view.php'
+      ], $data
+    );
+  }
+
+
+
+
+
 }

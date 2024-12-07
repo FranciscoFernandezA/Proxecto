@@ -80,20 +80,36 @@ class FrontController
     //----------- PRODUCTOS ------------//
 
 
-    Route::add('/productos/nuevo',
-      function () {
-        $controlador = new \Com\FernandezFran\Controllers\ProductoController();
-        $controlador->mostrarAgregarProducto();
-      }
-      , 'get');
+    Route::add('/productos/editar/([0-9]+)', function ($id) {
+      $controlador = new \Com\FernandezFran\Controllers\ProductoController();
+      $controlador->editar($id);
+    }, 'get');
+
+    Route::add('/productos/editar/([0-9]+)', function ($id) {
+      $controlador = new \Com\FernandezFran\Controllers\ProductoController();
+      $controlador->editar($id);
+    }, 'post');
+
+
+
+
+
+
 
     Route::add('/productos/nuevo',
       function () {
         $controlador = new \Com\FernandezFran\Controllers\ProductoController();
         $controlador->mostrarAgregarProducto();
-      }
-      , 'post');
-
+      },
+      'get'
+    );
+    Route::add('/productos/nuevo',
+      function () {
+        $controlador = new \Com\FernandezFran\Controllers\ProductoController();
+        $controlador->mostrarAgregarProducto();
+      },
+      'post'
+    );
     Route::add('/productos',
       function () {
         $controlador = new \Com\FernandezFran\Controllers\ProductoController();
