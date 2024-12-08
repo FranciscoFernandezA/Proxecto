@@ -39,6 +39,8 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
   }
 
 
+
+
   public function mostrarTodoslista()
   {
     $data = [];
@@ -67,6 +69,10 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
       $data
     );
   }
+
+
+
+
 
   public function mostrarAgregarProducto() {
 
@@ -102,7 +108,6 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
         echo "Lo siento, hubo un error al subir tu archivo.";
       }
     }
-
     $this->view->showViews(
       [
         'templates/header.view.php',
@@ -133,7 +138,6 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
       header('Location: /productos');
       exit;
     }
-
     $marcaModel = new \Com\FernandezFran\Models\MarcaModel();
     $categoriaModel = new \Com\FernandezFran\Models\CategoriaModel();
     $marcas = $marcaModel->getAll();
@@ -144,7 +148,7 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
     $data['categorias'] = $categorias;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      // Validaciones para el formulario de actualización
+      // Validaciones
       $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
       $nombre = trim($_POST['nombre']);
       if (empty($nombre) || strlen($nombre) > 150) {
@@ -171,8 +175,6 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
         die('Marca  inválida.');
       }
 
-
-
       if (isset($_FILES['imagen']) && $_FILES['imagen']['tmp_name']) {
         // Validación de extensión
         $extensionesPermitidas = ['jpg', 'jpeg', 'png'];
@@ -197,7 +199,6 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
             }
           }
 
-
           $nombreLimpio = preg_replace('/[^a-zA-Z0-9_-]/', '', strtolower($nombre));
           $nombreImagenFinal = $id . '_' . $nombreLimpio . '.' . $extension;
           $target_final_file = $target_dir . $nombreImagenFinal;
@@ -210,12 +211,10 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
         } else {
           die('Error al subir la nueva imagen.');
         }
-
       } else {
         // Mantén la imagen anterior si hay un error
         $nombreImagen = $producto['imagen'];
       }
-
 
       if (!$id || !$nombre || !$descripcion || !$precio || !$stock || !$id_categoria || !$id_marca || !$nombreImagen) {
         $_SESSION['error'] = 'Todos los campos son obligatorios.';
@@ -236,5 +235,36 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
       ], $data
     );
   }
+
+
+
+  public function verProducto($id)
+  {
+
+
+
+    $productoModel = new \Com\FernandezFran\Models\ProductoModel();
+    $producto = $productoModel->obtenerProductoPorId($id);
+
+    if (!$producto) {
+      header('Location: /productos');
+      exit;
+    }
+
+
+    $data = [];
+    $data['titulo'] = $producto['nombre'];
+    $data['producto'] = $producto;
+
+    $this->view->showViews(
+      [
+        'templates/header.view.php',
+        'producto.view.php',
+        'templates/footer.view.php'
+      ],
+      $data
+    );
+  }
+
 
 }

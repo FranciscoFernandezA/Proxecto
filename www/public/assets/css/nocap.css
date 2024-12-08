@@ -11,3 +11,34 @@
 }
 
 
+/*---------------------- CARDS ----------------------------*/
+
+.card {
+  cursor: pointer ;
+  transition: transform 0.3s ease, z-index 0s ease;
+}
+
+/* Oculta el botón por defecto */
+.product-card .card-body .add-to-cart {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out; /* Suaviza la transición */
+}
+
+/* Muestra el botón cuando se pasa el ratón por encima de la tarjeta */
+.product-card:hover .card-body .add-to-cart {
+  opacity: 1;
+}
+
+/* Opcional: Añadir efecto visual al hover de la tarjeta */
+.product-card:hover .card {
+  transition: transform 0.3s ease-in-out;
+  z-index: 10;
+}
+
+.add-to-cart {
+  background-color: #ffff;
+  color: black;
+  border: none;
+}
+
+

@@ -91,6 +91,10 @@ class FrontController
     }, 'post');
 
 
+    Route::add('/producto/([0-9]+)', function($id) {
+      $controlador = new \Com\FernandezFran\Controllers\ProductoController();
+      $controlador->verProducto($id);
+    }, 'get');
 
 
 

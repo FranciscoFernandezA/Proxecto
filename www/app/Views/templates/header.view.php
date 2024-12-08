@@ -12,13 +12,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-  <link href="//maxcdn.bootstrapcdn.com/font-awesome/6.7.0/css/font-awesome.min.css" rel="stylesheet">
-  <link
-    href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/1.0.0/css/font-awesome.css"
-    rel="stylesheet"  type='text/css'>
 
   <link
-    href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/font-awesome.css"
+    href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/1.0.0/css/font-awesome.css"
     rel="stylesheet"  type='text/css'>
 
   <!-- Ionicons -->
@@ -43,6 +39,9 @@
 
   <!-- Custom style -->
   <link rel="stylesheet" href="assets/css/nocap.css">
+  <!-- Custom style -->
+  <script src="assets/js/nocap.js" defer></script>
+
 </head>
 <body class="hold-transition sidebar-collapse layout-top-nav">
 <div class="wrapper">
@@ -212,7 +211,7 @@
 
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper cards-back">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
