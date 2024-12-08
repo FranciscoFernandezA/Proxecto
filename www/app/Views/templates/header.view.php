@@ -82,57 +82,32 @@
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
             <img src="assets/img/cart-shopping-solid.svg" class="icon-cart">
-
-
           </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    Brad Diesel
-                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">Call me whenever you can...</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    John Pierce
-                    <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">I got your message bro</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    Nora Silvester
-                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">The subject goes here</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">Pagar</a>
-          </div>
+          <?php if (!empty($_SESSION['carrito'])) { ?>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+              <?php foreach ($_SESSION['carrito'] as $item) { ?>
+                <a href="#" class="dropdown-item">
+                  <div class="media">
+                    <img src="/assets/img/gorras/<?php echo htmlspecialchars($item['imagen']); ?>" class="img-size-50 mr-3" alt="<?php echo htmlspecialchars($item['nombre']); ?>">
+                    <div class="media-body">
+                      <h3 class="dropdown-item-title">
+                        <?php echo htmlspecialchars($item['nombre']); ?>
+                      </h3>
+                      <p class="text-sm">Cantidad: <?php echo $item['cantidad']; ?></p>
+                      <p class="text-sm text-muted">Precio: <?php echo $item['precio'] * $item['cantidad']; ?>€</p>
+                    </div>
+                  </div>
+                </a>
+                <div class="dropdown-divider"></div>
+              <?php } ?>
+              <a href="/carrito" class="dropdown-item dropdown-footer">Ver Carrito</a>
+              <a href="/pagar" class="dropdown-item dropdown-footer">Pagar</a>
+            </div>
+          <?php } else { ?>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+              <p class="dropdown-item">El carrito está vacío.</p>
+            </div>
+          <?php } ?>
         </li>
         <!-- User Dropdown Menu -->
         <li class="nav-item dropdown">

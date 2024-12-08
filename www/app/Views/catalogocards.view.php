@@ -31,7 +31,12 @@
                 </h5>
                 <p class="card-text"><?php echo htmlspecialchars($producto['nombre_marca']); ?></p>
                 <p class="card-text fw-bold"><?php echo htmlspecialchars($producto['precio']); ?>€</p>
-                <button data-product-name="<?php echo htmlspecialchars($producto['nombre']); ?>" id="addtocart" class="btn btn-primary add-to-cart">Añadir al carro</button>
+                <button
+                  data-product-name="<?php echo htmlspecialchars($producto['nombre']); ?>"
+                  data-product-id="<?php echo htmlspecialchars($producto['id_producto']); ?>"
+                  class="btn btn-primary add-to-cart">
+                  Añadir al carro
+                </button>
               </div>
             </div>
           </div>

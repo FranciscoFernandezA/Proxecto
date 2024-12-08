@@ -13,6 +13,12 @@ class FrontController
     if (!isset($_SESSION['nombre'])) {
       session_start();
     }
+    if (!isset($_SESSION['carrito'])) {
+      $_SESSION['carrito'] = [];
+    }
+
+
+
 
     Route::add('/',
       function () {
@@ -75,9 +81,37 @@ class FrontController
       }, 'get');
 
     }
+    //----------- CARRITO ------------//
+
+
+    Route::add('/carrito/agregar', function() {
+      $controlador = new \Com\FernandezFran\Controllers\ProductoController();
+      $controlador->agregarAlCarritoAjax();
+    }, 'post');
+
+
+    Route::add('/carrito', function() {
+      $controlador = new \Com\FernandezFran\Controllers\ProductoController();
+      $controlador->verCarrito();
+    }, 'get');
+
+    Route::add('/carrito/actualizar', function() {
+      $controlador = new \Com\FernandezFran\Controllers\ProductoController();
+      $controlador->actualizarCarrito();
+    }, 'post');
+
+    Route::add('/carrito/eliminar', function() {
+      $controlador = new \Com\FernandezFran\Controllers\ProductoController();
+      $controlador->eliminarDelCarrito();
+    }, 'post');
+
+
+
 
 
     //----------- PRODUCTOS ------------//
+
+
 
 
     Route::add('/productos/editar/([0-9]+)', function ($id) {
@@ -95,9 +129,6 @@ class FrontController
       $controlador = new \Com\FernandezFran\Controllers\ProductoController();
       $controlador->verProducto($id);
     }, 'get');
-
-
-
 
 
     Route::add('/productos/nuevo',

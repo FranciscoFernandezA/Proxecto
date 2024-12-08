@@ -240,9 +240,6 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
 
   public function verProducto($id)
   {
-
-
-
     $productoModel = new \Com\FernandezFran\Models\ProductoModel();
     $producto = $productoModel->obtenerProductoPorId($id);
 
@@ -250,8 +247,6 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
       header('Location: /productos');
       exit;
     }
-
-
     $data = [];
     $data['titulo'] = $producto['nombre'];
     $data['producto'] = $producto;
@@ -265,6 +260,114 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
       $data
     );
   }
+
+
+//Vista del carrito con el resumen de items
+  public function verCarrito($retornarJSON = false)
+  {
+    $carrito = $_SESSION['carrito'] ?? [];
+
+    if ($retornarJSON) {
+      echo json_encode(['items' => $carrito]);
+      exit;
+    }
+
+    $data = [
+      'titulo' => 'Carrito',
+      'carrito' => $carrito
+    ];
+
+    $this->view->showViews(
+      [
+        'templates/header.view.php',
+        'carrito.view.php',
+        'templates/footer.view.php'
+      ],
+      $data
+    );
+  }
+
+
+//Actualizar carrito para cambiar cantidad de productos
+  public function actualizarCarrito()
+  {
+    $id_producto = filter_input(INPUT_POST, 'id_producto', FILTER_VALIDATE_INT);
+    $cantidad = filter_input(INPUT_POST, 'cantidad', FILTER_VALIDATE_INT);
+
+    if ($id_producto && $cantidad && $cantidad > 0) {
+      foreach ($_SESSION['carrito'] as &$item) {
+        if ($item['id'] == $id_producto) {
+          $item['cantidad'] = $cantidad;
+          break;
+        }
+      }
+    }
+    header('Location: /carrito');
+    exit;
+  }
+
+  //Eliminar productos del carrito
+  public function eliminarDelCarrito()
+  {
+    $id_producto = filter_input(INPUT_POST, 'id_producto', FILTER_VALIDATE_INT);
+
+    if ($id_producto && isset($_SESSION['carrito'])) {
+      $_SESSION['carrito'] = array_filter($_SESSION['carrito'], function ($item) use ($id_producto) {
+        return $item['id'] != $id_producto;
+      });
+    }
+    header('Location: /carrito');
+    exit;
+  }
+
+
+
+//funcion para agregar productos al carrito / recoger los productos del ajax y validarlos
+//Revisar el fallo de que no se actualiza solo en el nav
+
+  public function agregarAlCarritoAjax()
+  {
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    $idProducto = filter_var($data['id_producto'], FILTER_VALIDATE_INT);
+    $cantidad = filter_var($data['cantidad'], FILTER_VALIDATE_INT);
+
+    if (!$idProducto || !$cantidad || $cantidad <= 0) {
+      echo json_encode(['success' => false, 'message' => 'Datos inválidos.']);
+      exit;
+    }
+
+    $productoModel = new \Com\FernandezFran\Models\ProductoModel();
+    $producto = $productoModel->obtenerProductoPorId($idProducto);
+
+    if (!$producto) {
+      echo json_encode(['success' => false, 'message' => 'Producto no encontrado.']);
+      exit;
+    }
+
+    if (!isset($_SESSION['carrito'])) {
+      $_SESSION['carrito'] = [];
+    }
+
+    $carrito = &$_SESSION['carrito'];
+    $index = array_search($idProducto, array_column($carrito, 'id'));
+
+    if ($index !== false) {
+      $carrito[$index]['cantidad'] += $cantidad;
+    } else {
+      $carrito[] = [
+        'id' => $idProducto,
+        'nombre' => $producto['nombre'],
+        'precio' => $producto['precio'],
+        'cantidad' => $cantidad,
+        'imagen' => $producto['imagen']
+      ];
+    }
+
+    echo json_encode(['success' => true, 'message' => 'Producto agregado correctamente.']);
+    exit;
+  }
+
 
 
 }
