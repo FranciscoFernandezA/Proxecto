@@ -101,7 +101,7 @@
                 <div class="dropdown-divider"></div>
               <?php } ?>
               <a href="/carrito" class="dropdown-item dropdown-footer">Ver Carrito</a>
-              <a href="/pagar" class="dropdown-item dropdown-footer">Pagar</a>
+              <a href="/pedido/confirmar" class="dropdown-item dropdown-footer">Pagar</a>
             </div>
           <?php } else { ?>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">

@@ -55,7 +55,9 @@ class UsuarioController extends \Com\FernandezFran\Core\BaseController
 
 
     $this->view->showViews(
-      ['templates/header.view.php', 'usuarios.view.php', 'templates/footer.view.php'],
+      ['templates/header.view.php',
+        'usuarios.view.php',
+        'templates/footer.view.php'],
       $data
     );
   }

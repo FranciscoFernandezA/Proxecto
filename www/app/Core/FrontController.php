@@ -106,6 +106,10 @@ class FrontController
     }, 'post');
 
 
+    Route::add('/carrito/contenido', function() {
+      $controlador = new \Com\FernandezFran\Controllers\ProductoController();
+      $controlador->   obtenerCarrito(true);
+    }, 'post');
 
 
 
@@ -151,6 +155,7 @@ class FrontController
         $controlador->mostrarTodosLista();
       }
       , 'get');
+
     Route::add('/productos/card',
       function () {
         $controlador = new \Com\FernandezFran\Controllers\ProductoController();
@@ -163,7 +168,11 @@ class FrontController
       $controlador->verProducto($id);
     }, 'get');
 
+
+
     //-----------  PEDIDOS  ------------//
+
+
     Route::add('/pedidos',
       function () {
         $controlador = new \Com\FernandezFran\Controllers\PedidoController();
@@ -171,6 +180,26 @@ class FrontController
       }
       , 'get');
 
+    Route::add('/pedido/crear', function () {
+      $controlador = new \Com\FernandezFran\Controllers\PedidoController();
+      $controlador->crearPedido();
+    }, 'post');
+
+
+    Route::add('/pedido/confirmar', function() {
+      $controlador = new \Com\FernandezFran\Controllers\PedidoController();
+      $controlador->confirmarPedido();
+    }, 'get');
+
+    Route::add('/pedido/confirmar', function() {
+      $controlador = new \Com\FernandezFran\Controllers\PedidoController();
+      $controlador->confirmarPedido();
+    }, 'post');
+
+    Route::add('/pedido/completado', function () {
+      $controlador = new \Com\FernandezFran\Controllers\PedidoController();
+      $controlador->pedidoCompletado();
+    }, 'get');
 
 
 

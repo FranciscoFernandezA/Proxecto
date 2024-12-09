@@ -17,7 +17,7 @@
         </div>
         <div class="form-group">
           <label for="stock">Stock</label>
-          <input type="number" name="stock" id="stock" class="form-control" required>
+          <input type="number" name="stock" id="stock" class="form-control" min="1" required>
         </div>
         <?php if (count($categorias) > 0) { ?>
           <div class="form-group">

@@ -1,6 +1,6 @@
 
 <div class="container mt-5">
-  <h1>Carrito de Compras</h1>
+  <h1>Tu carrito</h1>
   <?php if (empty($carrito)) : ?>
     <p>El carrito está vacío. <a href="/productos">¡Compra algo!</a></p>
   <?php else : ?>
