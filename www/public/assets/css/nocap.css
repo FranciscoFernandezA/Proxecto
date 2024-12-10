@@ -12,8 +12,13 @@
 
 
 /*---------------------- CARDS ----------------------------*/
+.col {
+  margin-bottom: 11px;
+
+}
 
 .card {
+
   cursor: pointer ;
   transition: transform 0.3s ease, z-index 0s ease;
 }
@@ -21,15 +26,15 @@
 /* Oculta el botón por defecto */
 .product-card .card-body .add-to-cart {
   opacity: 0;
-  transition: opacity 0.3s ease-in-out; /* Suaviza la transición */
+  transition: opacity 0.3s ease-in-out;
 }
 
-/* Muestra el botón cuando se pasa el ratón por encima de la tarjeta */
+/* Muestra el botón cuando se pasa el ratón*/
 .product-card:hover .card-body .add-to-cart {
   opacity: 1;
 }
 
-/* Opcional: Añadir efecto visual al hover de la tarjeta */
+/* Añadir efecto al hover */
 .product-card:hover .card {
   transition: transform 0.3s ease-in-out;
   z-index: 10;
@@ -37,8 +42,108 @@
 
 .add-to-cart {
   background-color: #ffff;
-  color: black;
+  color: #f9f9f9;
   border: none;
 }
 
 
+/*---------------------- FILTROS ----------------------------*/
+
+
+
+/* Contenedor de los filtros */
+.card-filtro {
+  border: none;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card-body-filtro {
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+}
+
+/* Campos de formulario */
+.form-label {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.form-select-lg,
+.form-control {
+  border: 1px solid #6aafff;
+  border-radius: 5px;
+  padding: 0.6rem;
+  font-size: 0.9rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-select-lg:focus,
+.form-control:focus {
+  border-color: #6aafff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* Botones */
+.btn {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+
+
+/* Botón de azul rosa claro */
+.btn-primary {
+  background-color: #6aafff;
+  border-color: #6aafff;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
+.btn-primary:hover {
+  background-color: #2e2e2e;
+  border-color: #100f0f;
+  color: #ffffff;
+
+}
+
+
+/* Botón de borrar rosa claro */
+.btn-danger {
+  margin-right: 2rem;
+  background-color: #fad4f9;
+  border-color: #fad4f9;
+  color: #100f0f;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
+.btn-danger:hover {
+  background-color: #292727;
+  border-color: #fad4f9;
+  color: #fad4f9;
+}
+
+/* Espaciado entre campos */
+.row.g-3 > * {
+  margin-bottom: 1rem;
+}
+
+/* Contenedor responsive */
+@media (max-width: 768px) {
+  .form-label {
+    font-size: 0.85rem;
+  }
+
+
+  .form-control {
+    font-size: 0.85rem;
+    padding: 0.5rem;
+  }
+
+
+/*Numero de items del carrito*/
+.navbar-badge{
+  font-size: 0.75rem;
+}

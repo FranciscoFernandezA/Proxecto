@@ -93,6 +93,12 @@
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
             <img src="assets/img/cart-shopping-solid.svg" class="icon-cart">
+            <span class="badge badge-danger navbar-badge">
+              <?php
+              if (isset($_SESSION['carrito'])): ?>
+                <?php echo count($_SESSION['carrito']); ?>
+              <?php endif; ?>
+            </span>
           </a>
           <?php if (!empty($_SESSION['carrito'])) { ?>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">

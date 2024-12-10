@@ -9,50 +9,6 @@ use Com\FernandezFran\Models\MarcaModel;
 
 class ProductoController extends \Com\FernandezFran\Core\BaseController
 {
-/*
-  //MOSTRAR TODOS OS PRODUCTOS
-  public function mostrarTodosLista()
-  {
-    $data = [];
-    $data['seccion'] = '/productos/lista';
-
-    $modelo = new \Com\FernandezFran\Models\ProductoModel();
-    $marcas = new \Com\FernandezFran\Models\MarcaModel();
-    $categorias = new \Com\FernandezFran\Models\CategoriaModel();
-
-    $data['marcas'] = $marcas->getAll();
-    $data['categorias'] = $categorias->getAll();
-
-    // Procesar los filtros recibidos por GET
-    $data['input'] = filter_var_array($_GET, FILTER_SANITIZE_SPECIAL_CHARS);
-
-    // Filtrar por id_categoría
-    if (isset($_GET['id_categoria']) && !empty($_GET['id_categoria'])) {
-      $data['productos'] = $modelo->filterByCategoria($_GET['id_categoria']);
-    }// Filtrar por id_marca
-    else if  (isset($_GET['id_marca']) && !empty($_GET['id_marca'])) {
-    $data['productos'] = $modelo->filterByMarca($_GET['id_marca']);
-    }// Filtrar por nombre
-    else if (isset($_GET['nombre']) && !empty($_GET['nombre'])) {
-      $data['productos'] = $modelo->filterByName($_GET['nombre']);
-    }
-    // Ordenar por stock
-    else if (isset($_GET['orden']) && in_array($_GET['orden'], ['asc', 'desc'], true)) {
-      $data['pedidos'] = $modelo->orderByFecha($_GET['orden']);
-    }else { //todos los productos
-      $data['productos'] = $modelo->getAll();
-    }
-    // Renderizar las vistas con los datos
-    $this->view->showViews(
-      ['templates/header.view.php',
-        'catalogo.view.php',
-        'templates/footer.view.php'],
-      $data
-    );
-  }
-
-*/
-
 
 
   public function mostrarTodosLista()
@@ -93,31 +49,34 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
   public function mostrarTodos()
   {
     $data = [];
-    $data['titulo'] = 'Catálogo de Productos';
-    $data['seccion'] = '/productos';
+    $data['seccion'] = '/productos/lista';
 
     $modelo = new \Com\FernandezFran\Models\ProductoModel();
+    $marcas = new \Com\FernandezFran\Models\MarcaModel();
+    $categorias = new \Com\FernandezFran\Models\CategoriaModel();
+
+    $data['marcas'] = $marcas->getAll();
+    $data['categorias'] = $categorias->getAll();
 
     // Procesar los filtros recibidos por GET
     $data['input'] = filter_var_array($_GET, FILTER_SANITIZE_SPECIAL_CHARS);
 
-    // Filtrar por id_categoría
-    if (isset($_GET['id_categoria']) && !empty($_GET['id_categoria'])) {
-      $data['productos'] = $modelo->filterByCategoria($_GET['id_categoria']);
-    }// Filtrar por nombre
-    elseif (isset($_GET['nombre']) && !empty($_GET['nombre'])) {
-      $data['productos'] = $modelo->filterByName($_GET['nombre']);
-    } //todos los productos
-    else {
-      $data['productos'] = $modelo->getAll();
-    }
+    $data['productos'] = $modelo->getProdcutosFiltrados([
+      'id_categoria' => $data['input']['categoria'] ?? null,
+      'id_marca' => $data['input']['marca'] ?? null,
+      'nombre' => $data['input']['nombre'] ?? null,
+      'orden_stock' => $data['input']['orden_stock'] ?? null,
+    ]);
 
-    // Renderizar las vistas con los datos
+    // Renderizar la vista con los datos
     $this->view->showViews(
-      ['templates/header.view.php', 'catalogocards.view.php', 'templates/footer.view.php'],
+      ['templates/header.view.php',
+        'catalogocards.view.php',
+        'templates/footer.view.php'],
       $data
     );
   }
+
 
 
 
