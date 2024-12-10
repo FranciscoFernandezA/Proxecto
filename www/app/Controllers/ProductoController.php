@@ -9,10 +9,11 @@ use Com\FernandezFran\Models\MarcaModel;
 
 class ProductoController extends \Com\FernandezFran\Core\BaseController
 {
+
+  //MOSTRAR TODOS OS PRODUCTOS
   public function mostrarTodos()
   {
     $data = [];
-    $data['titulo'] = 'Catálogo de Productos';
     $data['seccion'] = '/productos';
 
     $modelo = new \Com\FernandezFran\Models\ProductoModel();
@@ -40,7 +41,7 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
 
 
 
-
+  //MOSTRAR TODOS OS PRODUCTOS pero para a vista de ADMIN
   public function mostrarTodoslista()
   {
     $data = [];
@@ -73,7 +74,6 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
 
 
 
-
   public function mostrarAgregarProducto() {
 
     $data = [];
@@ -99,13 +99,57 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
       $id_marca = $_POST['id_marca'];
       $imagen = $_FILES['imagen']['name'];
 
-      $target_dir = 'assets/img/gorras/';
-      $target_file = $target_dir . basename($imagen);
-      if (move_uploaded_file($_FILES['imagen']['tmp_name'], $target_file)) {
-        $productoModel = new \Com\FernandezFran\Models\ProductoModel();
-        $productoModel->agregarProducto($nombre, $descripcion, $precio, $stock, $id_categoria, $id_marca, $imagen);
+
+      // Validación
+      $errors = [];
+      if (!$nombre || !$descripcion || !$precio || !$stock || !$id_categoria || !$id_marca || !$imagen) {
+        $errors[]='Todos los campos son obligatorios.';
+      }
+
+      if ( !is_numeric($precio) || $precio <= 0) {
+        $errors[] = "El precio debe ser un número positivo.";
+      }
+      if ( !is_numeric($stock) || $stock < 0) {
+        $errors[] = "El stock debe ser un número entero positivo.";
+      }
+      if (!is_numeric($id_categoria)) {
+        $errors[] = "La categoría no es válida.";
+      }
+      if ( !is_numeric($id_marca)) {
+        $errors[] = "La marca no es válida.";
       } else {
-        echo "Lo siento, hubo un error al subir tu archivo.";
+        $allowedExtensions = ['jpg', 'jpeg', 'png'];
+        $fileExtension = strtolower(pathinfo($imagen, PATHINFO_EXTENSION));
+        if (!in_array($fileExtension, $allowedExtensions)) {
+          $errors[] = "La imagen debe ser un archivo de tipo JPG, JPEG o PNG .";
+        }
+        if ($_FILES['imagen']['size'] > 10 * 1024 * 1024) {
+          $errors[] = "La imagen no puede pesar más de 10 Mb.";
+        }
+      }
+
+      if (count($errors) > 0) {
+        foreach ($errors as $error) {
+          echo "<p class='error'>$error</p>";
+        }
+      } else {
+
+        // Generar un nombre único para la imagen
+        $numeroAleatorio = uniqid(); // Genera un identificador único
+        $nombreLimpio = preg_replace('/[^a-zA-Z0-9_-]/', '', strtolower($nombre));
+        $extension = pathinfo($imagen, PATHINFO_EXTENSION);
+        $nombreImagenFinal = $numeroAleatorio . '_' . $nombreLimpio . '.' . $extension;
+
+        // Ruta para guardar la imagen
+        $target_dir = 'assets/img/gorras/';
+        $target_file = $target_dir . $nombreImagenFinal;
+
+        // Subir la imagen al servidor
+        if (move_uploaded_file($_FILES['imagen']['tmp_name'], $target_file)) {
+          // Si la imagen se sube correctamente, insertar el producto en la base de datos
+          $productoModel = new \Com\FernandezFran\Models\ProductoModel();
+          $productoModel->agregarProducto($nombre, $descripcion, $precio, $stock, $id_categoria, $id_marca, $nombreImagenFinal);
+        }
       }
     }
     $this->view->showViews(
