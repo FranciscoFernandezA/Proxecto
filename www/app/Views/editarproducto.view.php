@@ -18,7 +18,7 @@
     </div>
     <div class="form-group">
       <label for="stock">Stock:</label>
-      <input type="number" name="stock" id="stock" class="form-control"
+      <input type="number" name="stock" id="stock" class="form-control" min="0"
              value="<?php echo htmlspecialchars($producto['stock']); ?>" required>
     </div>
     <div class="form-group">

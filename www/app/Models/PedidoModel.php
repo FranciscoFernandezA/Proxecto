@@ -25,6 +25,19 @@ class PedidoModel extends \Com\FernandezFran\Core\BaseModel
     return $stmt->fetchAll();
   }
 
+  public function orderByFecha(string $orden): array
+  {
+    try {
+      $query = self::SELECT_FROM . " ORDER BY fecha_pedido " . ($orden === 'recientes' ? 'DESC' : 'ASC');
+      $stmt = $this->pdo->prepare($query);
+      $stmt->execute();
+      return $stmt->fetchAll();
+    } catch (PDOException $e) {
+      // Puedes loguear el error para ayudarte a depurarlo
+      error_log("Error en orderByFecha: " . $e->getMessage());
+      return [];
+    }
+  }
 
 
   public function obtenerMetodosPago(): array
@@ -87,6 +100,34 @@ class PedidoModel extends \Com\FernandezFran\Core\BaseModel
   }
 
 
+
+  // Consulta para obtener los pedidos
+  public function obtenerPedidoPorId($id_pedido)
+  {
+    try {
+      $query = '
+                SELECT p.*, u.nombre, u.apellidos
+            FROM pedidos p
+            JOIN usuarios u ON p.id_usuario = u.id_usuario
+            WHERE p.id_pedido = :id_pedido
+            ';
+      $stmt = $this->pdo->prepare($query);
+      $stmt->execute(['id_pedido' => $id_pedido]);
+
+      $pedido= $stmt->fetchAll();
+
+        $pedido['detalles'] = $this->obtenerDetallesPedido($id_pedido);
+
+
+      return $pedido;
+    } catch (PDOException $e) {
+      error_log("Error en obtenerPedidosPorUsuario: " . $e->getMessage());
+      return false;
+    }
+  }
+
+
+
   // Consulta para obtener los detalles de pedido
   private function obtenerDetallesPedido($id_pedido)
   {
@@ -110,6 +151,18 @@ class PedidoModel extends \Com\FernandezFran\Core\BaseModel
     }
   }
 
+
+
+
+  //Actualizar el estado del pedido
+  public function actualizarEstado($id_pedido, $nuevoEstado)
+  {
+    $query = "UPDATE pedidos SET estado = :estado WHERE id_pedido = :id_pedido";
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindParam(':estado', $nuevoEstado, \PDO::PARAM_STR);
+    $stmt->bindParam(':id_pedido', $id_pedido, \PDO::PARAM_INT);
+    return $stmt->execute();
+  }
 
 
 }

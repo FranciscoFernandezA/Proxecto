@@ -17,20 +17,29 @@ class PedidoController extends \Com\FernandezFran\Core\BaseController
     // Procesar los filtros recibidos por GET
     $data['input'] = filter_var_array($_GET, FILTER_SANITIZE_SPECIAL_CHARS);
 
+    // Filtrar por estado
     if (isset($_GET['estado']) && in_array($_GET['estado'], ['pagado', 'pendiente', 'enviado', 'entregado', 'cancelado'], true)) {
-      // Filtrar por tipo
       $data['pedidos'] = $modelo->filterByEstado($_GET['estado']);
-    }else {
-        $data['pedidos'] = $modelo->getAll();
-      }
-
-      $this->view->showViews(
-        ['templates/header.view.php',
-          'pedidos.view.php',
-          'templates/footer.view.php'],
-        $data
-      );
     }
+    // Ordenar por fecha
+    else if (isset($_GET['orden']) && in_array($_GET['orden'], ['recientes', 'antiguos'], true)) {
+      $data['pedidos'] = $modelo->orderByFecha($_GET['orden']);
+    } else {
+      $data['pedidos'] = $modelo->getAll();
+    }
+
+    if (!$data['pedidos']) {
+      $data['error'] = 'No se encontraron registros que cumplan los filtros aplicados.';
+    }
+
+    $this->view->showViews(
+      ['templates/header.view.php',
+        'pedidos.view.php',
+        'templates/footer.view.php'],
+      $data
+    );
+  }
+
 
 
   public function confirmarPedido()
@@ -182,6 +191,52 @@ class PedidoController extends \Com\FernandezFran\Core\BaseController
       [
         'templates/header.view.php',
         'mispedidos.view.php',
+        'templates/footer.view.php'
+      ],
+      $data
+    );
+  }
+
+
+  public function editarEstado($id_pedido)
+  {
+    if (!$id_pedido) {
+      header('Location: /pedidos');
+      exit;
+    }
+
+    $pedidoModel = new \Com\FernandezFran\Models\PedidoModel();
+    $pedido = $pedidoModel->obtenerPedidoPorId($id_pedido);
+
+    if (!$pedido) {
+      header('Location: /pedidos');
+      exit;
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $nuevoEstado = $_POST['estado'];
+
+      $estadosValidos = ['pagado', 'pendiente', 'enviado', 'entregado', 'cancelado'];
+      if (!in_array($nuevoEstado, $estadosValidos)) {
+        die('Estado inválido.');
+      }
+
+      $pedidoModel->actualizarEstado($id_pedido, $nuevoEstado);
+
+      $_SESSION['success'] = 'Estado del pedido actualizado correctamente.';
+      header('Location: /pedidos');
+      exit;
+    }
+
+    $data = [
+      'pedido' => $pedido,
+      'estadosValidos' => ['pagado', 'pendiente', 'enviado', 'entregado', 'cancelado']
+    ];
+
+    $this->view->showViews(
+      [
+        'templates/header.view.php',
+        'editarpedido.view.php',
         'templates/footer.view.php'
       ],
       $data

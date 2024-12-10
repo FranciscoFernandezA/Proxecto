@@ -15,6 +15,7 @@
         <?php
         if (count($productos) > 0) {
         foreach ($productos as $producto) {
+          if ($producto['stock']>0) {
           ?>
           <div class="col card-body product-card" style="margin-bottom: 15px">
             <div class="card h-100 producto">
@@ -42,6 +43,7 @@
           </div>
               <?php
             }
+        }
             ?>
 
           <?php

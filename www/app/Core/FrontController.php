@@ -201,10 +201,22 @@ class FrontController
       $controlador->pedidoCompletado();
     }, 'get');
 
+    Route::add('/pedidos/editar/([0-9]+)', function ($id) {
+      $controlador = new \Com\FernandezFran\Controllers\PedidoController();
+      $controlador->editarEstado($id);
+    }, 'get');
+
+    Route::add('/pedidos/editar/([0-9]+)', function ($id) {
+      $controlador = new \Com\FernandezFran\Controllers\PedidoController();
+      $controlador->editarEstado($id);
+    }, 'post');
+
+
     Route::add('/mispedidos', function () {
       $controlador = new \Com\FernandezFran\Controllers\PedidoController();
       $controlador->misPedidos();
     }, 'get');
+
 
 
     //-------------- USUARIOS -------------//

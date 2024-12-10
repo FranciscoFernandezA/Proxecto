@@ -26,7 +26,6 @@ productCards.forEach((card) => {
 //EventListener para añadir al carrito en los botones de las cards y en la vista de producto
 document.addEventListener('DOMContentLoaded', () => {
 
-
   const cantidadInput = document.querySelector('.cantidad');
 
   // Evento para validar la cantidad cada vez que cambia el input

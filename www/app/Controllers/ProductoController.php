@@ -9,14 +9,19 @@ use Com\FernandezFran\Models\MarcaModel;
 
 class ProductoController extends \Com\FernandezFran\Core\BaseController
 {
-
+/*
   //MOSTRAR TODOS OS PRODUCTOS
-  public function mostrarTodos()
+  public function mostrarTodosLista()
   {
     $data = [];
-    $data['seccion'] = '/productos';
+    $data['seccion'] = '/productos/lista';
 
     $modelo = new \Com\FernandezFran\Models\ProductoModel();
+    $marcas = new \Com\FernandezFran\Models\MarcaModel();
+    $categorias = new \Com\FernandezFran\Models\CategoriaModel();
+
+    $data['marcas'] = $marcas->getAll();
+    $data['categorias'] = $categorias->getAll();
 
     // Procesar los filtros recibidos por GET
     $data['input'] = filter_var_array($_GET, FILTER_SANITIZE_SPECIAL_CHARS);
@@ -24,25 +29,68 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
     // Filtrar por id_categoría
     if (isset($_GET['id_categoria']) && !empty($_GET['id_categoria'])) {
       $data['productos'] = $modelo->filterByCategoria($_GET['id_categoria']);
+    }// Filtrar por id_marca
+    else if  (isset($_GET['id_marca']) && !empty($_GET['id_marca'])) {
+    $data['productos'] = $modelo->filterByMarca($_GET['id_marca']);
     }// Filtrar por nombre
-    elseif (isset($_GET['nombre']) && !empty($_GET['nombre'])) {
+    else if (isset($_GET['nombre']) && !empty($_GET['nombre'])) {
       $data['productos'] = $modelo->filterByName($_GET['nombre']);
-    } //todos los productos
-    else {
+    }
+    // Ordenar por stock
+    else if (isset($_GET['orden']) && in_array($_GET['orden'], ['asc', 'desc'], true)) {
+      $data['pedidos'] = $modelo->orderByFecha($_GET['orden']);
+    }else { //todos los productos
       $data['productos'] = $modelo->getAll();
     }
-
     // Renderizar las vistas con los datos
     $this->view->showViews(
-      ['templates/header.view.php', 'catalogocards.view.php', 'templates/footer.view.php'],
+      ['templates/header.view.php',
+        'catalogo.view.php',
+        'templates/footer.view.php'],
+      $data
+    );
+  }
+
+*/
+
+
+
+  public function mostrarTodosLista()
+  {
+    $data = [];
+    $data['seccion'] = '/productos/lista';
+
+    $modelo = new \Com\FernandezFran\Models\ProductoModel();
+    $marcas = new \Com\FernandezFran\Models\MarcaModel();
+    $categorias = new \Com\FernandezFran\Models\CategoriaModel();
+
+    $data['marcas'] = $marcas->getAll();
+    $data['categorias'] = $categorias->getAll();
+
+    // Procesar los filtros recibidos por GET
+    $data['input'] = filter_var_array($_GET, FILTER_SANITIZE_SPECIAL_CHARS);
+
+    $data['productos'] = $modelo->getProdcutosFiltrados([
+      'id_categoria' => $data['input']['categoria'] ?? null,
+      'id_marca' => $data['input']['marca'] ?? null,
+      'nombre' => $data['input']['nombre'] ?? null,
+      'orden_stock' => $data['input']['orden_stock'] ?? null,
+    ]);
+
+    // Renderizar la vista con los datos
+    $this->view->showViews(
+      ['templates/header.view.php',
+        'catalogo.view.php',
+        'templates/footer.view.php'],
       $data
     );
   }
 
 
 
+
   //MOSTRAR TODOS OS PRODUCTOS pero para a vista de ADMIN
-  public function mostrarTodoslista()
+  public function mostrarTodos()
   {
     $data = [];
     $data['titulo'] = 'Catálogo de Productos';
@@ -66,7 +114,7 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
 
     // Renderizar las vistas con los datos
     $this->view->showViews(
-      ['templates/header.view.php', 'catalogo.view.php', 'templates/footer.view.php'],
+      ['templates/header.view.php', 'catalogocards.view.php', 'templates/footer.view.php'],
       $data
     );
   }
@@ -192,6 +240,10 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
     $data['categorias'] = $categorias;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+
+      //var_dump($_POST);
+
       // Validaciones
       $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
       $nombre = trim($_POST['nombre']);
@@ -206,8 +258,8 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
       if ($precio === false || $precio <= 0) {
         die('Precio inválido');
       }
-      $stock = filter_input(INPUT_POST, 'stock', FILTER_VALIDATE_INT);
-      if ($stock === false || $stock < 0) {
+      $stock = filter_input( INPUT_POST, 'stock', FILTER_SANITIZE_NUMBER_INT);
+      if ($stock < 0) {
         die('Stock inválido');
       }
       $id_categoria = filter_input(INPUT_POST, 'id_categoria', FILTER_VALIDATE_INT);
@@ -225,7 +277,7 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
         $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
 
         if (!in_array(strtolower($extension), $extensionesPermitidas)) {
-          die('Formato de imagen no aceptado. Solo se aceptan: jpg, jpeg, png.');
+          die('El formato de imagen no es: jpg, jpeg, png.');
         }
 
         // Generar un nombre temporal único
@@ -260,7 +312,7 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
         $nombreImagen = $producto['imagen'];
       }
 
-      if (!$id || !$nombre || !$descripcion || !$precio || !$stock || !$id_categoria || !$id_marca || !$nombreImagen) {
+      if (!$id || !$nombre || !$descripcion || !$precio || !$id_categoria || !$id_marca ) {
         $_SESSION['error'] = 'Todos los campos son obligatorios.';
         header('Location: /productos/editar/'.$id);
         exit;
@@ -268,7 +320,7 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
 
       $productoModel = new \Com\FernandezFran\Models\ProductoModel();
       $productoModel->actualizarProducto($id, $nombre, $descripcion, $precio, $stock, $id_categoria, $id_marca, $nombreImagen);
-
+      header('Location: /productos/lista');
       $_SESSION['success'] = 'Producto actualizado correctamente.';
     }
     $this->view->showViews(

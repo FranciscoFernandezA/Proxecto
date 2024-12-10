@@ -8,38 +8,66 @@ use PDO;
 
 class ProductoModel extends \Com\FernandezFran\Core\BaseModel
 {
-  private const SELECT_FROM = '    SELECT
-        productos.*,
-        categorias.nombre AS nombre_categoria,
-        marcas.nombre AS nombre_marca
-    FROM productos
-    LEFT JOIN categorias ON productos.id_categoria = categorias.id_categoria
-    LEFT JOIN marcas ON productos.id_marca = marcas.id_marca';
+
+  private const SELECT_FROM = '
+    SELECT p.*,
+           c.nombre AS nombre_categoria,
+           m.nombre AS nombre_marca
+    FROM productos p
+    LEFT JOIN categorias c ON p.id_categoria = c.id_categoria
+    LEFT JOIN marcas m ON p.id_marca = m.id_marca
+';
 
   public function getAll(): array
   {
     $stmt = $this->pdo->query(self::SELECT_FROM);
     return $stmt->fetchAll();
   }
-  public function filterByCategoria(int $categoria): array
-  {
-    $stmt = $this->pdo->prepare(self::SELECT_FROM . ' WHERE id_categoria = ?');
-    $stmt->execute([$categoria]);
-    return $stmt->fetchAll();
-  }
-  public function filterByName(string $nombre): array
-  {
-    $stmt = $this->pdo->prepare(self::SELECT_FROM . ' WHERE nombre LIKE ?');
-    $stmt->execute(['%' . $nombre . '%']);
-    return $stmt->fetchAll();
-  }
 
 
+  public function getProdcutosFiltrados(array $filtros): array
+  {
+    $query = self::SELECT_FROM; // Base de la consulta
+    $params = [];
+    $conditions = [];
+
+    // Filtro por categoría
+    if (!empty($filtros['id_categoria'])) {
+      $conditions[] = 'p.id_categoria = ?';
+      $params[] = $filtros['id_categoria'];
+    }
+
+    // Filtro por marca
+    if (!empty($filtros['id_marca'])) {
+      $conditions[] = 'p.id_marca = ?';
+      $params[] = $filtros['id_marca'];
+    }
+
+    // Filtro por nombre
+    if (!empty($filtros['nombre'])) {
+      $conditions[] = 'p.nombre LIKE ?';
+      $params[] = '%' . $filtros['nombre'] . '%';
+    }
+
+    // Crear condiciones
+    if (!empty($conditions)) {
+      $query .= ' WHERE ' . implode(' AND ', $conditions);
+    }
+
+    // Ordenar por stock
+    if (!empty($filtros['orden_stock']) && in_array(strtolower($filtros['orden_stock']), ['asc', 'desc'], true)) {
+      $query .= ' ORDER BY p.stock ' . strtoupper($filtros['orden_stock']);
+    }
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->execute($params);
+
+    return $stmt->fetchAll();
+  }
 
 
   // Agregar un nuevo producto
   public function agregarProducto($nombre, $descripcion, $precio, $stock, $id_categoria, $id_marca, $imagen) {
-
 
         $stmt = $this->pdo->prepare("
                 INSERT INTO productos (nombre, descripcion, precio, stock, id_categoria, id_marca, imagen)
@@ -55,12 +83,13 @@ class ProductoModel extends \Com\FernandezFran\Core\BaseModel
           'id_marca' => $id_marca,
           'imagen' => $imagen
         ]);
-
   }
 
 
   public function actualizarProducto($id, $nombre, $descripcion, $precio, $stock, $id_categoria, $id_marca, $imagen)
   {
+
+    try {
     $query = "
         UPDATE productos
         SET
@@ -84,7 +113,15 @@ class ProductoModel extends \Com\FernandezFran\Core\BaseModel
       'id_marca' => $id_marca,
       'imagen' => $imagen,
     ]);
+    } catch (PDOException $e) {
+      // Registro de error en la base de datos
+      error_log("Error al actualizar el producto: " . $e->getMessage());
+      return false;
+    }
+
+    return true;
   }
+
 
   //Actualización de stock cuando creamos el pedido
   public function reducirStock(int $id_producto, int $cantidad): bool

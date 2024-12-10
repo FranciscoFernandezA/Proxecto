@@ -31,7 +31,17 @@
                 </select>
               </div>
             </div>
-        <div class="card-footer">
+            <div class="col-12 col-lg-3">
+              <div class="mb-3">
+                <label for="orden">Ordenar por:</label>
+                <select name="orden" id="orden" class="form-control">
+                  <option value="recientes" <?php echo (isset($input['orden']) && $input['orden'] === 'recientes') ? 'selected' : ''; ?>>Más recientes</option>
+                  <option value="antiguos" <?php echo (isset($input['orden']) && $input['orden'] === 'antiguos') ? 'selected' : ''; ?>>Más antiguos</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="card-footer">
           <div class="col-12 text-right">
             <a href="/pedidos" class="btn btn-danger">Reiniciar filtros</a>
             <input type="submit" value="Aplicar filtros" name="enviar" class="btn btn-primary ml-2"/>
@@ -72,6 +82,9 @@
                 <td><?php echo htmlspecialchars($pedido['estado']); ?></td>
                 <td><?php echo htmlspecialchars($pedido['total']); ?>€</td>
                 <td><?php echo date('d/m/Y H:i:s', strtotime($pedido['fecha_pedido'])); ?></td>
+                <td>
+                <a href="/pedidos/editar/<?php echo $pedido['id_pedido']; ?>" class="btn btn-sm btn-primary">Detalles / Editar estado</a>
+                </td>
               </tr>
               <?php
             }
