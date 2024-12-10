@@ -7,13 +7,13 @@
     <div class="col-md-6">
       <h1><?php echo htmlspecialchars($producto['nombre']); ?></h1>
       <p class="text-muted"><?php echo htmlspecialchars($producto['descripcion']); ?></p>
-      <h2 class="text-success">$<?php echo number_format($producto['precio'], 2); ?></h2>
+      <h2 class="text-success"><?php echo number_format($producto['precio'], 2); ?>€</h2>
 
-      <form action="/carrito/agregar" method="post" class="mt-4">
+      <form action="" method="" class="mt-4">
         <input type="hidden" name="id_producto" value="<?php echo $producto['id_producto']; ?>">
         <div class="mb-3">
           <label for="cantidad" class="form-label">Cantidad:</label>
-          <select name="cantidad" id="cantidad" class="form-select" required>
+          <select name="cantidad" id="cantidad" class="cantidad form-select" required>
             <?php for ($i = 1; $i <= $producto['stock']; $i++) { ?>
               <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
             <?php } ?>
@@ -21,15 +21,19 @@
         </div>
 
         <div class="d-flex gap-3">
-          <button type="submit" name="accion" value="carrito" class="btn btn-primary">
+          <button type="button" class="btn btn-primary add-to-cart"
+                  data-product-name="<?php echo htmlspecialchars($producto['nombre']); ?>"
+                  data-product-id="<?php echo htmlspecialchars($producto['id_producto']); ?>">
             <i class="fas fa-cart-plus"></i> Añadir al Carrito
           </button>
-          <button type="submit" name="accion" value="comprar" class="btn btn-success">
+          <a href="/carrito" class="btn btn-success add-to-cart"
+             data-product-name="<?php echo htmlspecialchars($producto['nombre']); ?>"
+             data-product-id="<?php echo htmlspecialchars($producto['id_producto']); ?>">
             <i class="fas fa-credit-card"></i> Comprar Ahora
-          </button>
+          </a>
         </div>
       </form>
     </div>
+
   </div>
-</div>
 

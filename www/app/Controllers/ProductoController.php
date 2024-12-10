@@ -331,7 +331,7 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
 
     $idProducto = filter_var($data['id_producto'], FILTER_VALIDATE_INT);
     $cantidad = filter_var($data['cantidad'], FILTER_VALIDATE_INT);
-
+    var_dump($cantidad);
     if (!$idProducto || !$cantidad || $cantidad <= 0) {
       echo json_encode(['success' => false, 'message' => 'Datos inválidos.']);
       exit;

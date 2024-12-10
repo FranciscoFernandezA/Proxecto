@@ -119,6 +119,13 @@ class PedidoController extends \Com\FernandezFran\Core\BaseController
       if (!$pedidoModel->agregarDetallePedido($id_pedido, $id_producto, $cantidad, $precio_unitario)) {
         error_log('Error: No se pudo agregar un detalle del pedido' . $item['id']);
       }
+
+      $productoModel = new \Com\FernandezFran\Models\ProductoModel();
+
+      // Actualizar el stock del producto
+      if (!$productoModel->reducirStock($id_producto, $cantidad)) {
+        error_log('Error: No se pudo reducir el stock del producto: ' . $id_producto);
+      }
     }
 
     unset($_SESSION['carrito']);
@@ -144,6 +151,42 @@ class PedidoController extends \Com\FernandezFran\Core\BaseController
     );
 
 }
+
+
+
+
+  public function misPedidos()
+  {
+    $data=[];
+
+    $id_usuario = $_SESSION['usuario_id'];
+
+    if (!$id_usuario) {
+      $_SESSION['error'] = 'Usuario no autenticado.';
+      header('Location: /login');
+      exit;
+    }
+
+    $pedidoModel = new \Com\FernandezFran\Models\PedidoModel();
+    $pedidos = $pedidoModel->obtenerPedidosPorUsuario($id_usuario);
+
+    if ($pedidos === false) {
+      $_SESSION['error'] = 'No se pudieron obtener los pedidos.';
+      header('Location: /');
+      exit;
+    }
+    $data['pedidos'] = $pedidos;
+
+
+    $this->view->showViews(
+      [
+        'templates/header.view.php',
+        'mispedidos.view.php',
+        'templates/footer.view.php'
+      ],
+      $data
+    );
+  }
 
 
 

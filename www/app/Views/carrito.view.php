@@ -49,7 +49,7 @@
       </tr>
       </tfoot>
     </table>
-    <a href="/pago" class="btn btn-success">Pagar</a>
+    <a href="/pedido/confirmar" class="btn btn-success">Pagar</a>
   <?php endif; ?>
 </div>
 

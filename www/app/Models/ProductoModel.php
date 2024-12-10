@@ -135,6 +135,14 @@ class ProductoModel extends \Com\FernandezFran\Core\BaseModel
     ]);
   }
 
+  //Actualización de stock cuando creamos el pedido
+  public function reducirStock(int $id_producto, int $cantidad): bool
+  {
+    $stmt = $this->pdo->prepare("UPDATE productos SET stock = stock - ? WHERE id_producto = ? AND stock >= ?");
+    return $stmt->execute([$cantidad, $id_producto, $cantidad]);
+  }
+
+
 
 
 

@@ -152,14 +152,14 @@ class FrontController
     Route::add('/productos',
       function () {
         $controlador = new \Com\FernandezFran\Controllers\ProductoController();
-        $controlador->mostrarTodosLista();
+        $controlador->mostrarTodos();
       }
       , 'get');
 
-    Route::add('/productos/card',
+    Route::add('/productos/lista',
       function () {
         $controlador = new \Com\FernandezFran\Controllers\ProductoController();
-        $controlador->mostrarTodos();
+        $controlador->mostrarTodosLista();
       }
       , 'get');
 
@@ -201,8 +201,10 @@ class FrontController
       $controlador->pedidoCompletado();
     }, 'get');
 
-
-
+    Route::add('/mispedidos', function () {
+      $controlador = new \Com\FernandezFran\Controllers\PedidoController();
+      $controlador->misPedidos();
+    }, 'get');
 
 
     //-------------- USUARIOS -------------//
