@@ -33,6 +33,15 @@ class FrontController
         $controller->error404();
       }
     );
+
+    Route::add('/informacion',
+      function () {
+        $controlador = new \Com\FernandezFran\Controllers\InicioController();
+        $controlador->index();
+      }
+      , 'get');
+
+
     //----------- SESIÓN ------------//
 
     if (!isset($_SESSION['nombre'])) {
@@ -93,6 +102,7 @@ class FrontController
     Route::add('/carrito', function() {
       $controlador = new \Com\FernandezFran\Controllers\ProductoController();
       $controlador->verCarrito();
+      header("Location: /carrito");
     }, 'get');
 
     Route::add('/carrito/actualizar', function() {
@@ -108,9 +118,8 @@ class FrontController
 
     Route::add('/carrito/contenido', function() {
       $controlador = new \Com\FernandezFran\Controllers\ProductoController();
-      $controlador->   obtenerCarrito(true);
+      $controlador->   verCarrito(true);
     }, 'post');
-
 
 
     //----------- PRODUCTOS ------------//

@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-5 editar-producto">
   <h2>Editar Producto</h2>
   <form action="/productos/editar/<?php echo htmlspecialchars($producto['id_producto']); ?>" method="post" enctype="multipart/form-data">
     <input type="hidden" name="id" value="<?php echo htmlspecialchars($producto['id_producto']); ?>">

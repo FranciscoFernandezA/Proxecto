@@ -67,6 +67,7 @@
             <tr>
               <th>ID Pedido</th>
               <th>ID Usuario</th>
+              <th>Usuario</th>
               <th>Estado</th>
               <th>Total €</th>
               <th>Fecha pedido</th>
@@ -79,6 +80,7 @@
               <tr>
                 <td><?php echo htmlspecialchars($pedido['id_pedido']); ?></td>
                 <td><?php echo htmlspecialchars($pedido['id_usuario']); ?></td>
+                <td><?php echo htmlspecialchars($pedido['usuario_nombre']); ?> <?php echo htmlspecialchars($pedido['usuario_apellidos']); ?></td>
                 <td><?php echo htmlspecialchars($pedido['estado']); ?></td>
                 <td><?php echo htmlspecialchars($pedido['total']); ?>€</td>
                 <td><?php echo date('d/m/Y H:i:s', strtotime($pedido['fecha_pedido'])); ?></td>

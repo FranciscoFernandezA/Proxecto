@@ -31,6 +31,7 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
       'id_marca' => $data['input']['marca'] ?? null,
       'nombre' => $data['input']['nombre'] ?? null,
       'orden_stock' => $data['input']['orden_stock'] ?? null,
+      'orden_precio' => $data['input']['orden_precio'] ?? null,
     ]);
 
     // Renderizar la vista con los datos
@@ -65,7 +66,7 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
       'id_categoria' => $data['input']['categoria'] ?? null,
       'id_marca' => $data['input']['marca'] ?? null,
       'nombre' => $data['input']['nombre'] ?? null,
-      'orden_stock' => $data['input']['orden_stock'] ?? null,
+      'orden_precio' => $data['input']['orden_precio'] ?? null,
     ]);
 
     // Renderizar la vista con los datos
@@ -179,7 +180,6 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
     }
 
     $data = [];
-    $data['titulo'] = 'Editar producto';
     $data['seccion'] = '/productos/editar';
 
     $productoModel = new \Com\FernandezFran\Models\ProductoModel();
@@ -200,8 +200,6 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-
-      //var_dump($_POST);
 
       // Validaciones
       $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
@@ -303,7 +301,6 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
       exit;
     }
     $data = [];
-    $data['titulo'] = $producto['nombre'];
     $data['producto'] = $producto;
 
     $this->view->showViews(
@@ -321,6 +318,11 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
   public function verCarrito($retornarJSON = false)
   {
     $carrito = $_SESSION['carrito'] ?? [];
+
+    // Validar que el carrito contenga datos válidos
+    if (empty($carrito) || !is_array($carrito)) {
+      $carrito = [];
+    }
 
     if ($retornarJSON) {
       echo json_encode(['items' => $carrito]);
@@ -343,15 +345,32 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
   }
 
 
+
+
+
+
+
 //Actualizar carrito para cambiar cantidad de productos
   public function actualizarCarrito()
   {
     $id_producto = filter_input(INPUT_POST, 'id_producto', FILTER_VALIDATE_INT);
     $cantidad = filter_input(INPUT_POST, 'cantidad', FILTER_VALIDATE_INT);
 
+    $modelo= new \Com\FernandezFran\Models\ProductoModel();
+    $producto = $modelo->obtenerProductoPorId($id_producto);
+
+    if(!$producto){
+      header('Location: /carrito');
+    }
+
     if ($id_producto && $cantidad && $cantidad > 0) {
       foreach ($_SESSION['carrito'] as &$item) {
         if ($item['id'] == $id_producto) {
+
+          //Comprobamos que no se pueda añadir más cantidad al carrito que el stock que tenemos
+          if($cantidad>$producto['stock']){
+            $cantidad=$producto['stock'];
+          }
           $item['cantidad'] = $cantidad;
           break;
         }
@@ -386,7 +405,7 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
 
     $idProducto = filter_var($data['id_producto'], FILTER_VALIDATE_INT);
     $cantidad = filter_var($data['cantidad'], FILTER_VALIDATE_INT);
-    var_dump($cantidad);
+
     if (!$idProducto || !$cantidad || $cantidad <= 0) {
       echo json_encode(['success' => false, 'message' => 'Datos inválidos.']);
       exit;
@@ -407,7 +426,16 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
     $carrito = &$_SESSION['carrito'];
     $index = array_search($idProducto, array_column($carrito, 'id'));
 
+
     if ($index !== false) {
+
+
+      //Control para impedir errores de stock
+      if(($carrito[$index]['cantidad']+$cantidad)>$producto['stock'] ){
+        echo json_encode(['success' => false, 'message' => 'No hay stock suficiente.']);
+        exit;
+      }
+
       $carrito[$index]['cantidad'] += $cantidad;
     } else {
       $carrito[] = [
@@ -420,6 +448,8 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
     }
 
     echo json_encode(['success' => true, 'message' => 'Producto agregado correctamente.']);
+
+
     exit;
   }
 

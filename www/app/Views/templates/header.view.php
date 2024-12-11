@@ -48,7 +48,7 @@
 
   <!-- Navbar-->
   <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
-    <div class="container">
+    <div class="container ">
       <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -56,13 +56,25 @@
       <div class="collapse navbar-collapse order-3" id="navbarCollapse">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
+
+
+
+
+
         <?php if(isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] == 'admin'){ ?>
 
           <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-list"></i></a>
           </li>
 
           <?php } ?>
+
+          <li class="nav-item">
+            <a href="/" class="">
+              <img src="assets/img/NoCap.svg" class="nav-icon icono-gorra align-middle" style="height: 50px;">
+            </a>
+          </li>
+
           <li class="nav-item">
             <a href="/" class="nav-link">INICIO</a>
           </li>
@@ -72,19 +84,26 @@
           <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">CATEGORÍAS</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="#" class="dropdown-item">Some action </a></li>
-              <li><a href="#" class="dropdown-item">Some other action</a></li>
+              <li><a href="/productos?categoria=1&marca=&orden_precio=&nombre=" class="dropdown-item">Beanies </a></li>
+              <li><a href="/productos?categoria=2&marca=&orden_precio=&nombre=" class="dropdown-item">Gorros Bucket</a></li>
+              <li><a href="/productos?categoria=3&marca=&orden_precio=&nombre=" class="dropdown-item">Gorras de Baseball</a></li>
+              <li><a href="/productos?categoria=4&marca=&orden_precio=&nombre=" class="dropdown-item">Gorras Deportivas</a></li>
+              <li><a href="/productos?categoria=5&marca=&orden_precio=&nombre=" class="dropdown-item">Gorras Planas</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">MARCAS</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="#" class="dropdown-item">Some action </a></li>
-              <li><a href="#" class="dropdown-item">Some other action</a></li>
+              <li><a href="/productos?categoria=&marca=1&orden_precio=&nombre=" class="dropdown-item">Nike </a></li>
+              <li><a href="/productos?categoria=&marca=2&orden_precio=&nombre=" class="dropdown-item">Adidas </a></li>
+              <li><a href="/productos?categoria=&marca=3&orden_precio=&nombre=" class="dropdown-item">New Era </a></li>
+              <li><a href="/productos?categoria=&marca=4&orden_precio=&nombre=" class="dropdown-item">NoCap </a></li>
+              <li><a href="/productos?categoria=&marca=5&orden_precio=&nombre=" class="dropdown-item">DCShoes </a></li>
+              <li><a href="/productos?categoria=&marca=6&orden_precio=&nombre=" class="dropdown-item">F1 </a></li>
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">QUIENES SOMOS</a>
+            <a href="/informacion" class="nav-link">QUIENES SOMOS</a>
           </li>
 
         </ul>
@@ -177,7 +196,7 @@
     </div>
   </nav>
 
-
+  <?php if(isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] == 'admin'){ ?>
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Sidebar -->
@@ -187,7 +206,7 @@
         <div class="info">
           <?php
           if (isset($_SESSION['nombre'])): ?>
-            <p style="color: white"><?= htmlspecialchars($_SESSION['nombre']); ?></p>
+            <p style="color: white">ADMIN: <?= htmlspecialchars($_SESSION['nombre']); ?></p>
           <?php endif; ?>
         </div>
 
@@ -200,7 +219,7 @@
     <!-- /.sidebar -->
   </aside>
 
-
+  <?php } ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper cards-back">

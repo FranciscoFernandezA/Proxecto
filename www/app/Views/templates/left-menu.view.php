@@ -9,45 +9,17 @@
       </a>
     </li>
 
-    <!-- CLIENTES -->
-    <li class="nav-item <?php echo isset($seccion) && in_array($seccion, ['/registro', '/login']) ? 'menu-open' : ''; ?>">
-      <a href="#" class="nav-link">
-        <i class="nav-icon fas fa-user"></i>
-        <p>
-          CLIENTES
-          <i class="right fas fa-angle-left"></i>
-        </p>
-      </a>
-      <ul class="nav nav-treeview">
-        <li class="nav-item">
-          <a href="/registro" class="nav-link <?php echo isset($seccion) && $seccion === '/registro' ? 'active' : ''; ?>">
-            <i class="fas fa-user nav-icon"></i>
-            <p>Registrate</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/login" class="nav-link <?php echo isset($seccion) && $seccion === '/login' ? 'active' : ''; ?>">
-            <i class="fas fa-user nav-icon"></i>
-            <p>Inicia Sesión</p>
-          </a>
-        </li>
-      </ul>
-    </li>
-
     <!-- ADMIN -->
-    <li class="nav-item <?php echo isset($seccion) && in_array($seccion, ['/pedidos', '/productos/nuevo', '/productos/card', '/productos', '/usuarios']) ? 'menu-open' : ''; ?>">
-      <a href="#" class="nav-link">
-        <i class="nav-icon fas fa-database"></i>
-        <p>
-          ADMIN
-          <i class="right fas fa-angle-left"></i>
-        </p>
-      </a>
-      <ul class="nav nav-treeview">
         <li class="nav-item">
           <a href="/pedidos" class="nav-link <?php echo isset($seccion) && $seccion === '/pedidos' ? 'active' : ''; ?>">
             <i class="fas fa-cart-plus nav-icon"></i>
-            <p>Pedidos</p>
+            <p>Lista de Pedidos</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/productos/lista" class="nav-link <?php echo isset($seccion) && $seccion === '/productos' ? 'active' : ''; ?>">
+            <i class="fas fa-boxes nav-icon"></i>
+            <p>Lista de Productos</p>
           </a>
         </li>
         <li class="nav-item">
@@ -57,25 +29,17 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="/productos" class="nav-link <?php echo isset($seccion) && $seccion === '/productos/card' ? 'active' : ''; ?>">
-            <i class="fas fa-boxes nav-icon"></i>
-            <p>Catálogo adecentado</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/productos/lista" class="nav-link <?php echo isset($seccion) && $seccion === '/productos' ? 'active' : ''; ?>">
-            <i class="fas fa-boxes nav-icon"></i>
-            <p>Catálogo</p>
-          </a>
-        </li>
-        <li class="nav-item">
           <a href="/usuarios" class="nav-link <?php echo isset($seccion) && $seccion === '/usuarios' ? 'active' : ''; ?>">
             <i class="fas fa-users nav-icon"></i>
-            <p>Usuarios</p>
+            <p>Lista de Usuarios</p>
           </a>
         </li>
-      </ul>
-    </li>
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+            <i class="fas fa-list nav-icon"></i>
+            <p>Cerrar</p>
+          </a>
+        </li>
   </ul>
 </nav>
 <!-- /.sidebar-menu -->

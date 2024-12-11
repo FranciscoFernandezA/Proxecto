@@ -14,7 +14,7 @@ class UsuarioController extends \Com\FernandezFran\Core\BaseController
   public function mostrarTodos()
   {
     $data = [];
-    $data['titulo'] = 'Todos los usuarios';
+    $data['titulo'] = 'Lista los usuarios';
     $data['seccion'] = '/usuarios';
 
     $modelo = new \Com\FernandezFran\Models\UsuarioModel();
@@ -86,7 +86,6 @@ class UsuarioController extends \Com\FernandezFran\Core\BaseController
   public function mostrarRegistro()
   {
     $data = [];
-    $data['titulo'] = 'Registro de Usuario';
     $data['seccion'] = '/registro';
 
     // Compruebo si el formulario se envió
@@ -116,7 +115,6 @@ class UsuarioController extends \Com\FernandezFran\Core\BaseController
   public function mostrarLogin()
   {
     $data = [];
-    $data['titulo'] = 'Iniciar sesión';
     $data['seccion'] = '/login';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -124,7 +122,7 @@ class UsuarioController extends \Com\FernandezFran\Core\BaseController
       $password = $_POST['password'] ?? '';
 
       if (empty($email) || empty($password)) {
-        $mensaje = "Rellena los campor obligatorios";
+        $mensaje = "Rellena los campos obligatorios";
       } else {
         $modelo = new \Com\FernandezFran\Models\UsuarioModel();
         $mensaje = $modelo->loginUsuario($email, $password);

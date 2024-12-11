@@ -1,6 +1,6 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-6 producto-form">
       <form action="/productos/nuevo" method="POST" enctype="multipart/form-data">
         <div class="form-group">
           <label for="nombre">Nombre</label>

@@ -53,6 +53,10 @@ class ProductoModel extends \Com\FernandezFran\Core\BaseModel
     if (!empty($conditions)) {
       $query .= ' WHERE ' . implode(' AND ', $conditions);
     }
+    // Ordenar por precio
+    if (!empty($filtros['orden_precio']) && in_array(strtolower($filtros['orden_precio']), ['asc', 'desc'], true)) {
+      $query .= ' ORDER BY p.precio ' . strtoupper($filtros['orden_precio']);
+    }
 
     // Ordenar por stock
     if (!empty($filtros['orden_stock']) && in_array(strtolower($filtros['orden_stock']), ['asc', 'desc'], true)) {

@@ -1,6 +1,3 @@
-
-
-
 const productCards = document.querySelectorAll(".producto");
 productCards.forEach((card) => {
 
@@ -20,7 +17,6 @@ productCards.forEach((card) => {
     card.style.zIndex = "0";
   });
 });
-
 
 
 //EventListener para añadir al carrito en los botones de las cards y en la vista de producto
@@ -106,4 +102,25 @@ function actualizarCarrito() {
       carritoMenu.innerHTML += `<a href="/carrito" class="dropdown-item dropdown-footer">Ver Carrito</a>`;
     })
     .catch(error => console.error('Error al actualizar el carrito:', error));
+}
+
+
+
+//Funcion para cambiar las imagenes del slider de la página de inicio
+
+  let index = 0;
+
+  function moveSlide(step) {
+  const slides = document.querySelector('.slides');
+  const totalSlides = document.querySelectorAll('.slide').length;
+
+
+  index += step; //Cambia el index según el parámetro que mandamos (step)
+
+  if (index >= totalSlides) { //Si el slide al que intento acceder es mayor que el index cambia a la primera para hacer el bucle
+  index = 0;
+} else if (index < 0) {
+  index = totalSlides - 1;
+}
+  slides.style.transform = `translateX(-${index * 100}%)`;//Cambia la foto por la que toca según el index, al tamaño completo del contenedor
 }

@@ -6,7 +6,17 @@ namespace Com\FernandezFran\Models;
 
 class PedidoModel extends \Com\FernandezFran\Core\BaseModel
 {
-  private const SELECT_FROM = 'SELECT * FROM pedidos';
+  private const SELECT_FROM = '
+    SELECT
+        pedidos.*,
+        usuarios.nombre AS usuario_nombre,
+        usuarios.apellidos AS usuario_apellidos,
+        usuarios.email AS usuario_email,
+        usuarios.telefono AS usuario_telefono
+    FROM pedidos
+    INNER JOIN usuarios ON pedidos.id_usuario = usuarios.id_usuario
+';
+
 
   public function getAll(): array
   {

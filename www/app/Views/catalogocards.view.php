@@ -16,8 +16,6 @@
               <?php endforeach; ?>
             </select>
           </div>
-
-          <!-- Filtro de marca -->
           <div class="col-12 col-md-3">
             <select name="marca" id="marca" class="form-control">
               <option value="">Marcas</option>
@@ -29,39 +27,28 @@
               <?php endforeach; ?>
             </select>
           </div>
-
-          <!-- Filtro por precio -->
           <div class="col-12 col-md-3">
             <select name="orden_precio" id="orden_precio" class="form-control">
               <option value="">Ordenar</option>
-              <option value="asc" <?php echo (isset($input['orden_precio']) && $input['orden_precio'] === 'asc') ? 'selected' : ''; ?>>Menor a Mayor</option>
-              <option value="desc" <?php echo (isset($input['orden_precio']) && $input['orden_precio'] === 'desc') ? 'selected' : ''; ?>>Mayor a Menor</option>
+              <option value="asc" <?php echo (isset($input['orden_precio']) && $input['orden_precio'] === 'asc') ? 'selected' : ''; ?>>Más barato primero</option>
+              <option value="desc" <?php echo (isset($input['orden_precio']) && $input['orden_precio'] === 'desc') ? 'selected' : ''; ?>>Más caro primero</option>
             </select>
           </div>
-
           <div class="col-12 col-md-3">
           <input type="text" class="form-control me-2" name="nombre" id="nombre"
                  value="<?php echo isset($input['nombre']) ? htmlspecialchars($input['nombre']) : ''; ?>"
                  placeholder="Buscar producto">
           </div>
-
         </div>
-
-
-
-        <!-- Campo de búsqueda y botones -->
         <div class="col-12 col-md-6 d-flex">
-
           <a href="/productos" class="btn btn-danger me-2 borrar">Borrar</a>
           <button type="submit" class="btn btn-primary aplicar" >Aplicar</button>
         </div>
-
-
       </form>
     </div>
   </div>
 
-  <!-- Catálogo de productos -->
+  <!-- Catálogo -->
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
     <?php if (count($productos) > 0): ?>
       <?php foreach ($productos as $producto): ?>
@@ -91,7 +78,7 @@
         <?php endif; ?>
       <?php endforeach; ?>
     <?php else: ?>
-      <p class="text-danger text-center">No existen registros que cumplan los requisitos.</p>
+      <p class="text-danger text-center">No existe el productos que buscas .</p>
     <?php endif; ?>
   </div>
 </div>

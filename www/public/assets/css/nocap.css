@@ -2,14 +2,10 @@
 
 /*---------------------- HEADER ----------------------------*/
 
-
-.icon-cart  .icon-user  {
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-  object-fit: contain;
+.icono-gorra{
+  width: 12rem;
+  height:12rem;
 }
-
 
 /*---------------------- CARDS ----------------------------*/
 .col {
@@ -23,11 +19,7 @@
   transition: transform 0.3s ease, z-index 0s ease;
 }
 
-/* Oculta el botón por defecto */
-.product-card .card-body .add-to-cart {
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
+
 
 /* Muestra el botón cuando se pasa el ratón*/
 .product-card:hover .card-body .add-to-cart {
@@ -48,8 +40,6 @@
 
 
 /*---------------------- FILTROS ----------------------------*/
-
-
 
 /* Contenedor de los filtros */
 .card-filtro {
@@ -93,8 +83,6 @@
   transition: all 0.3s;
 }
 
-
-
 /* Botón de azul rosa claro */
 .btn-primary {
   background-color: #6aafff;
@@ -106,9 +94,7 @@
   background-color: #2e2e2e;
   border-color: #100f0f;
   color: #ffffff;
-
 }
-
 
 /* Botón de borrar rosa claro */
 .btn-danger {
@@ -141,9 +127,180 @@
     font-size: 0.85rem;
     padding: 0.5rem;
   }
-
+}
 
 /*Numero de items del carrito*/
 .navbar-badge{
   font-size: 0.75rem;
+}
+
+.navbar-white{
+  color: #000000 !important;
+  background-color: #6aafff;
+
+}
+
+/*---------------------- INICIO ----------------------------*/
+
+.categoria-card:hover {
+  background-color: #6aafff;
+  color: white;
+}
+.categoria-title:hover {
+  color: white;
+}
+
+.categoria-title {
+  transition: all 0.3s;
+  font: -apple-system-caption2;
+  text-transform: uppercase;
+  color: black;
+  margin: 0;
+}
+
+.categoria-card {
+  transition: all 0.3s;
+  background-color: #fad4f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+
+.explora{
+  transition: all 0.3s;
+  background-color: #fad4f9;
+  color: black;
+  text-align: center;
+}
+
+.explora:hover{
+  transition: all 0.3s;
+  background-color: #ffffff;
+  color: black;
+  text-align: center;
+}
+
+
+
+.texto-index{
+  background-color: #6aafff;
+  padding: 4rem;
+
+}
+
+
+/*---------------------- SLIDER ----------------------------*/
+
+
+.slider {
+  position: relative;
+  width: 80%;
+  max-width: 600px;
+  margin: auto;
+  overflow: hidden;
+}
+.slides {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+.slide {
+  min-width: 100%;
+  box-sizing: border-box;
+}
+.slide img {
+  width: 100%;
+  display: block;
+}
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 12px;
+  color: black;
+  font-size: 18px;
+  user-select: none;
+  z-index: 1000;
+}
+.prev {
+  left: 0;
+}
+.next {
+  right: 0;
+}
+
+
+
+
+/*---------------------- PRODUCTO ----------------------------*/
+
+.precio{
+  color: #000000 !important;
+}
+.cartahora{
+  background-color: #6aafff;
+  color: white;
+}
+.cartahora:hover{
+  background-color: #fad4f9;
+  color: black;
+}
+
+.compraahora{
+  background-color: #fad4f9;
+  color: black;
+}
+
+.compraahora:hover{
+  background-color: #6aafff;
+  color: white;
+}
+
+.img-producto:hover {
+  box-shadow: 0 10px 15px rgb(106, 175, 255) !important;
+  transition: box-shadow 0.3s ease;
+}
+.enlace-carrito{
+  border-color: #fad4f9;
+  color: black;
+}
+.enlace-carrito:hover{
+  color: white;
+  border-color: #6aafff;
+}
+
+
+/*---------------------- REGISTRO Y LOGIN----------------------------*/
+
+.login-container{
+
+  background-color: #fad4f9;
+  padding: 4rem;
+  border-radius: 10px;
+}
+
+.registro-container{
+
+  background-color: #fad4f9;
+  padding: 4rem;
+  border-radius: 10px;
+}
+/*---------------------- NUEVO PRODUCTO----------------------------*/
+
+.producto-form{
+  background-color: #fad4f9;
+  padding: 4rem;
+  border-radius: 10px;
+  margin-bottom: 35px;
+}
+
+/*---------------------- EDITAR PRODUCTO----------------------------*/
+.editar-producto{
+
+  background-color: #fad4f9;
+  padding: 4rem;
+  border-radius: 10px;
+  margin-bottom: 35px;
 }

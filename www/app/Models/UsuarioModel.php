@@ -51,18 +51,25 @@ class UsuarioModel extends \Com\FernandezFran\Core\BaseModel
   }
 
 
-
+//Función para el login
   public function loginUsuario($email, $password)
   {
     try {
+      // Limpiar y sanitizar email
+      $email = filter_var(trim($email), FILTER_SANITIZE_EMAIL);
+
       $stmt = $this->pdo->prepare("SELECT id_usuario, tipo_usuario, nombre, password FROM usuarios WHERE email = :email");
       $stmt->execute(['email' => $email]);
       $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
 
       if ($usuario && password_verify($password, $usuario['password'])) {
+
+
+
         if (session_status() === PHP_SESSION_NONE) {
           session_start();
         }
+
         $_SESSION['usuario_id'] = $usuario['id_usuario'];
         $_SESSION['nombre'] = $usuario['nombre'];
         $_SESSION['email'] = $email;
