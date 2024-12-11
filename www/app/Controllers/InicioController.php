@@ -19,4 +19,18 @@ class InicioController extends \Com\FernandezFran\Core\BaseController {
         $this->view->showViews(array('templates/header.view.php', 'inicio.view.php', 'templates/footer.view.php'), $data);
     }
 
+
+
+  public function info() {
+
+    $this->view->showViews(array('templates/header.view.php', 'info.view.php', 'templates/footer.view.php'));
+  }
+
+
+
+
+
+
+
+
 }

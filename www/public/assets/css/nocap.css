@@ -1,37 +1,20 @@
 
 
-/*---------------------- HEADER ----------------------------*/
-
-.icono-gorra{
-  width: 12rem;
-  height:12rem;
-}
-
-/*---------------------- CARDS ----------------------------*/
+/*---------------------- PRODUCT CARDS ----------------------------*/
 .col {
   margin-bottom: 11px;
-
 }
-
 .card {
-
   cursor: pointer ;
   transition: transform 0.3s ease, z-index 0s ease;
 }
 
-
-
-/* Muestra el botón cuando se pasa el ratón*/
-.product-card:hover .card-body .add-to-cart {
-  opacity: 1;
-}
 
 /* Añadir efecto al hover */
 .product-card:hover .card {
   transition: transform 0.3s ease-in-out;
   z-index: 10;
 }
-
 .add-to-cart {
   background-color: #ffff;
   color: #f9f9f9;
@@ -40,27 +23,24 @@
 
 
 /*---------------------- FILTROS ----------------------------*/
-
-/* Contenedor de los filtros */
+/*
+*Estilos de los botones y campos de los filtros de productos
+*/
 .card-filtro {
   border: none;
   border-radius: 8px;
   overflow: hidden;
 }
-
 .card-body-filtro {
   padding: 1.5rem;
   background-color: #f9f9f9;
 }
-
-/* Campos de formulario */
 .form-label {
   font-weight: bold;
   font-size: 0.9rem;
   color: #333;
 }
 
-.form-select-lg,
 .form-control {
   border: 1px solid #6aafff;
   border-radius: 5px;
@@ -68,14 +48,11 @@
   font-size: 0.9rem;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
-
-.form-select-lg:focus,
 .form-control:focus {
   border-color: #6aafff;
   box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
 }
 
-/* Botones */
 .btn {
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
@@ -122,14 +99,18 @@
     font-size: 0.85rem;
   }
 
-
   .form-control {
     font-size: 0.85rem;
     padding: 0.5rem;
   }
 }
 
-/*Numero de items del carrito*/
+/*---------------------- NAV ----------------------------*/
+/*
+*Estilos de los botones y navbar
+*Tamaño del numero de carrito
+*Tamaño del icono svg
+*/
 .navbar-badge{
   font-size: 0.75rem;
 }
@@ -139,9 +120,16 @@
   background-color: #6aafff;
 
 }
+.icono-gorra{
+  width: 12rem;
+  height:12rem;
+}
+
 
 /*---------------------- INICIO ----------------------------*/
-
+/*
+*Estilos de los botones y cards del INDEX
+*/
 .categoria-card:hover {
   background-color: #6aafff;
   color: white;
@@ -183,16 +171,23 @@
 }
 
 
-
 .texto-index{
   background-color: #6aafff;
   padding: 4rem;
 
 }
 
+/* Estilo para la imagen del texto (LOGO)*/
+.index-image {
+  max-width: 40%;
+  height: auto;
+  border-radius: 10px;
+}
 
 /*---------------------- SLIDER ----------------------------*/
-
+/*
+*Estilos del slider de fotos del index
+*/
 
 .slider {
   position: relative;
@@ -232,10 +227,10 @@
 }
 
 
-
-
 /*---------------------- PRODUCTO ----------------------------*/
-
+/*
+*Estilos de los botones y foto del producto
+*/
 .precio{
   color: #000000 !important;
 }
@@ -273,6 +268,9 @@
 
 
 /*---------------------- REGISTRO Y LOGIN----------------------------*/
+/*
+*Estilos del contenedor del formulario
+*/
 
 .login-container{
 
@@ -288,6 +286,9 @@
   border-radius: 10px;
 }
 /*---------------------- NUEVO PRODUCTO----------------------------*/
+/*
+*Estilos del contenedor del formulario
+*/
 
 .producto-form{
   background-color: #fad4f9;
@@ -297,6 +298,10 @@
 }
 
 /*---------------------- EDITAR PRODUCTO----------------------------*/
+/*
+*Estilos del contenedor del formulario
+*/
+
 .editar-producto{
 
   background-color: #fad4f9;
@@ -304,3 +309,7 @@
   border-radius: 10px;
   margin-bottom: 35px;
 }
+.cards-back{
+  background-color: #ffffff;
+}
+

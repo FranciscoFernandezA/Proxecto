@@ -330,7 +330,6 @@ class ProductoController extends \Com\FernandezFran\Core\BaseController
     }
 
     $data = [
-      'titulo' => 'Carrito',
       'carrito' => $carrito
     ];
 

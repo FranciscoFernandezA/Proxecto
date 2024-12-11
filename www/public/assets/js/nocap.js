@@ -1,3 +1,8 @@
+
+
+
+//Animación sencilla para que las cards aumenten de tamaño un 10% y cambien de color
+
 const productCards = document.querySelectorAll(".producto");
 productCards.forEach((card) => {
 
@@ -19,7 +24,7 @@ productCards.forEach((card) => {
 });
 
 
-//EventListener para añadir al carrito en los botones de las cards y en la vista de producto
+//EventListener para añadir al carrito en los botones de las cards y en la vista de producto también seleciona la cantidad
 document.addEventListener('DOMContentLoaded', () => {
 
   const cantidadInput = document.querySelector('.cantidad');
@@ -34,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-
+  //Trabajamos con todos los botones de la clase add-to-cart
   const buttons = document.querySelectorAll('.add-to-cart');
 
   buttons.forEach(button => {
@@ -86,7 +91,7 @@ function actualizarCarrito() {
 
       data.items.forEach(item => {
         carritoMenu.innerHTML += `
-                    <a href="#" class="dropdown-item">
+                    <a href="/producto/${item.id}" class="dropdown-item">
                         <div class="media">
                             <img src="/assets/img/gorras/${item.imagen}" class="img-size-50 mr-3" alt="${item.nombre}">
                             <div class="media-body">

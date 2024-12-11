@@ -184,6 +184,8 @@ class PedidoController extends \Com\FernandezFran\Core\BaseController
       header('Location: /');
       exit;
     }
+    $data['nombre'] = $_SESSION['nombre'];
+    $data['apellidos'] = $_SESSION['apellidos'];
     $data['pedidos'] = $pedidos;
 
 

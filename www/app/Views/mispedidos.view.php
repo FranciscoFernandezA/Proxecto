@@ -1,5 +1,6 @@
 <div class="container mt-5">
-    <h1>Mis Pedidos</h1>
+<h1 class="text-center">Mis pedidos</h1>
+  <h2> <?php echo $nombre; echo " "; echo $apellidos; ?></h2>
     <div class="row">
         <?php if (!empty($pedidos)) : ?>
             <?php foreach ($pedidos as $pedido) : ?>

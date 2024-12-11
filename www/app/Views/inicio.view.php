@@ -1,5 +1,8 @@
 <section class="container my-4">
   <div class="row align-items-center">
+
+
+
     <!-- Columna del Slider -->
     <div class="col-lg-6 col-md-12">
       <div class="slider">
@@ -33,6 +36,7 @@
     <!-- Columna del Texto -->
     <div class="col-lg-6 col-md-12 text-center texto-index" >
       <div class="hero-text">
+        <img src="assets/img/NoCap.svg" alt="Logo" class="index-image">
         <h2>Las Mejores Gorras al Mejor Precio!!</h2>
         <p>
           Descubre nuestra gran colección de gorras, para todas las ocasiones y públicos.
